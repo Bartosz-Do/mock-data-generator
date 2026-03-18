@@ -1,0 +1,40 @@
+@layer components {
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: var(--size-xl);
+    border-bottom: 2px solid var(--color-bg-disabled);
+    background-color: var(--color-bg-primary);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-m);
+    padding: 0 var(--space-m);
+
+    .content {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+
+      &.start {
+        justify-self: start;
+      }
+
+      &.end {
+        justify-self: end;
+      }
+
+      &.nav {
+        padding: 0 var(--space-m);
+        gap: var(--space-m);
+
+        a {
+          font-size: var(--font-size-m);
+          transition: 0.2s;
+        }
+      }
+    }
+  }
+}

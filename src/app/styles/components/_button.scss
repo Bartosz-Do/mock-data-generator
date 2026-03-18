@@ -1,0 +1,38 @@
+@layer components {
+  .button {
+    --btn-fg-color: var(--color-fg-primary);
+    --btn-bg-color: var(--color-bg-primary);
+
+    &.secondary {
+      --btn-bg-color: var(--color-bg-secondary);
+    }
+
+    &.disabled,
+    &:disabled {
+      --btn-fg-color: var(--color-fg-disabled);
+      --btn-bg-color: var(--color-bg-disabled);
+    }
+
+    background-color: var(--btn-bg-color);
+    color: var(--btn-fg-color);
+    border: 1px solid var(--btn-fg-color);
+    padding: var(--space-xs) var(--space-s);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    transition: 0.2s;
+
+    &:not(&:disabled):hover {
+      background-color: var(--color-bg-secondary);
+    }
+
+    &:not(&:disabled):active {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+}

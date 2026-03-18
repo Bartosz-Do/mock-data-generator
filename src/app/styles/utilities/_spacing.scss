@@ -1,0 +1,65 @@
+@use "../config" as config;
+
+@layer utilities {
+  @each $key, $value in config.$spacing {
+    .m-#{"" + $key} {
+      margin: $value;
+    }
+
+    .my-#{"" + $key} {
+      margin-top: $value;
+      margin-bottom: $value;
+    }
+
+    .mx-#{"" + $key} {
+      margin-left: $value;
+      margin-right: $value;
+    }
+
+    .mb-#{"" + $key} {
+      margin-bottom: $value;
+    }
+
+    .mt-#{"" + $key} {
+      margin-top: $value;
+    }
+
+    .mr-#{"" + $key} {
+      margin-right: $value;
+    }
+
+    .ml-#{"" + $key} {
+      margin-left: $value;
+    }
+
+    .p-#{"" + $key} {
+      padding: $value;
+    }
+
+    .py-#{"" + $key} {
+      padding-top: $value;
+      padding-bottom: $value;
+    }
+
+    .px-#{"" + $key} {
+      padding-left: $value;
+      padding-right: $value;
+    }
+
+    .pb-#{"" + $key} {
+      padding-bottom: $value;
+    }
+
+    .pl-#{"" + $key} {
+      padding-left: $value;
+    }
+
+    .pr-#{"" + $key} {
+      padding-right: $value;
+    }
+
+    .pt-#{"" + $key} {
+      padding-top: $value;
+    }
+  }
+}

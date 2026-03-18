@@ -1,0 +1,22 @@
+@layer root {
+  :root {
+    --font-family-base: system-ui, sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    --font-weight-base: 500;
+    color-scheme: light dark;
+  }
+
+  body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    font-weight: var(--font-weight-base);
+    color: var(--color-fg-primary);
+    background-color: var(--color-bg-primary);
+  }
+
+  main {
+    margin-top: calc(var(--size-xl) + var(--space-m));
+  }
+}

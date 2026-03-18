@@ -1,0 +1,16 @@
+@layer utilities {
+  .flex-start {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .flex-end {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .flex-center {
+    display: flex;
+    justify-content: center;
+  }
+}

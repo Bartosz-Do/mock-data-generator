@@ -1,0 +1,9 @@
+@use "config" as config;
+
+@layer props {
+  :root {
+    @each $prop, $value in config.$props {
+      --#{$prop}: #{$value};
+    }
+  }
+}
