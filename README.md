@@ -1,36 +1,196 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mock Data Generator (Next.js + API)
 
-## Getting Started
+## Opis projektu
 
-First, run the development server:
+Aplikacja webowa oparta o Next.js sluzaca do generowania mockowych danych do baz danych i projektow developerskich.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Uzytkownik moze:
+- definiowac wlasne pola (np. `username`, `email_address`)
+- wybierac typ danych dla kazdego pola (np. email, username, password)
+- okreslac liczbe rekordow (limit ~300)
+- generowac dane poprzez API
+- wyswietlac dane:
+  - wizualnie (preview)
+  - jako JSON (do kopiowania)
+  - jako zapytania SQL (do wklejenia do bazy)
+
+---
+
+## Zalozenia architektoniczne
+
+### Backend (API)
+- odpowiada tylko za generowanie surowych danych
+- brak logiki prezentacji i formatowania
+- brak bazy danych
+
+### Frontend
+- buduje strukture danych wedlug pol uzytkownika
+- generuje JSON i SQL
+- renderuje podglad danych i obsluguje UI
+
+---
+
+## API
+
+### Endpoint
+
+```http
+POST /api/generate
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Request (body)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```json
+{
+  "count": 100,
+  "fields": [
+    { "type": "username" },
+    { "type": "email" }
+  ],
+  "seed": 123
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Response
 
-## Learn More
+```json
+{
+  "meta": {
+    "count": 100,
+    "generatedAt": "2026-03-18T12:00:00Z"
+  },
+  "data": [
+    {
+      "username": "exampleUser",
+      "email": "example@email.com"
+    }
+  ]
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Seed (deterministyczne dane)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Seed pozwala generowac powtarzalne dane.  
+Ten sam seed + ten sam request = identyczne dane.
 
-## Deploy on Vercel
+### Przyklad
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{
+  "count": 3,
+  "fields": [{ "type": "username" }],
+  "seed": 123
+}
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Zastosowania
+
+- testy
+- debugowanie
+- odtwarzanie danych
+- share config
+
+---
+
+## Funkcjonalnosci
+
+- Generator danych:
+  - username, email, password, avatar, data, liczby (rozszerzalne)
+- Dynamiczne pola:
+  - dodawanie wlasnych nazw pol
+  - przypisywanie typow danych
+- Preview danych:
+  - wizualne wyswietlanie rekordow (limit 5-10)
+- Export:
+  - JSON i SQL do kopiowania
+- Copy to clipboard:
+  - przycisk "Copy code" z feedbackiem ("Copied ✅")
+
+---
+
+## Ograniczenia
+
+- maksymalnie ~300 rekordow
+- brak bazy danych
+- brak autoryzacji na start
+- brak cache
+
+---
+
+## Walidacja
+
+API powinno sprawdzac:
+
+- poprawnosc `count` (1-300)
+- poprawnosc `fields` i typow danych
+- obecnosc body w request
+
+---
+
+## Performance
+
+- wszystkie dane w jednym request
+- brak wielu requestow
+- limit zapobiega przeciazeniu
+
+---
+
+## Struktura projektu (high-level)
+
+```txt
+/app
+/components
+/lib
+  /generator
+  /formatters
+/types
+```
+
+---
+
+## UI (Figma + SCSS)
+
+Sekcje:
+
+1. Generator (fields + count)
+2. Preview danych
+3. Export (JSON / SQL)
+
+---
+
+## Mozliwe rozszerzenia
+
+- Presety (np. e-commerce)
+- Zaleznosci miedzy polami
+- Custom wartosci (np. `user_{index}`)
+- Rozne locale
+- CSV export
+- Relacje miedzy tabelami
+- Share link z seedem i configiem
+- Publiczne API
+
+---
+
+## Cel projektu
+
+- uniwersalne narzedzie do generowania danych
+- rozwoj umiejetnosci fullstack (API + frontend)
+- projekt portfolio z realnym zastosowaniem
+
+---
+
+## Kluczowe decyzje
+
+- POST zamiast GET
+- API zwraca tylko surowe dane
+- JSON/SQL generowane po stronie klienta
+- seed jako opcjonalna funkcja
+- prostota w MVP
+
+---
+
+## Status
+
+MVP w planowaniu 🚧
