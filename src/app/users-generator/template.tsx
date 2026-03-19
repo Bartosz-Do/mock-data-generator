@@ -5,7 +5,14 @@ import Toggle from "@/components/ui/toggle";
 import Button from "@/components/ui/button";
 import { cn } from "@/utilities";
 
-export const UsersGeneratorContext = createContext({
+type GeneratorSettings = {
+  username: boolean;
+  avatar: boolean;
+  email: boolean;
+  password: boolean;
+}
+
+export const UsersGeneratorContext = createContext<GeneratorSettings>({
   username: false,
   avatar: false,
   email: false,
