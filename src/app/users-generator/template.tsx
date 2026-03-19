@@ -6,6 +6,8 @@ import Button from "@/components/ui/button";
 import { cn } from "@/utilities";
 
 type GeneratorSettings = {
+  name: boolean;
+  surname: boolean;
   username: boolean;
   avatar: boolean;
   email: boolean;
@@ -13,6 +15,8 @@ type GeneratorSettings = {
 }
 
 export const UsersGeneratorContext = createContext<GeneratorSettings>({
+  name: false,
+  surname: false,
   username: false,
   avatar: false,
   email: false,
@@ -20,16 +24,28 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
+  const [name, setName] = useState(false);
+  const [surname, setSurname] = useState(false);
   const [username, setUsername] = useState(false);
   const [avatar, setAvatar] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
 
   return (
-    <UsersGeneratorContext.Provider value={{ username, avatar, email, password }}>
+    <UsersGeneratorContext.Provider value={{ name, surname, username, avatar, email, password }}>
       <Sidebar>
         <h2 className="mb-4">Settings</h2>
         <div className={cn("grid-2-columns", "width-100", "gap-2")}>
+
+          <div>Name</div>
+          <div className={cn("justify-self-end", "flex-align-center")}>
+            <Toggle onChange={(e) => setName(e.target.checked)} />
+          </div>
+
+          <div>Surname</div>
+          <div className={cn("justify-self-end", "flex-align-center")}>
+            <Toggle onChange={(e) => setSurname(e.target.checked)} />
+          </div>
 
           <div>Username</div>
           <div className={cn("justify-self-end", "flex-align-center")}>
