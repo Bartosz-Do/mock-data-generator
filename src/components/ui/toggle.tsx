@@ -1,5 +1,5 @@
-export default function Toggle({ disabled = false }: { disabled?: boolean }) {
+export default function Toggle({ disabled = false, onChange }: { disabled?: boolean, onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
   return (
-    <input type="checkbox" className="toggle" disabled={disabled} />
+    <input type="checkbox" className="toggle" disabled={disabled} onChange={onChange} />
   )
 }
