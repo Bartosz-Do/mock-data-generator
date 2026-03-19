@@ -9,7 +9,7 @@ export default function UsersGeneratorPage() {
     username: isUsername,
     avatar: isAvatar,
     email: isEmail,
-    password: isPassword
+    password: isPassword,
   } = useContext(UsersGeneratorContext);
 
   return (
@@ -22,5 +22,5 @@ export default function UsersGeneratorPage() {
       <p>Email: {isEmail ? "enabled" : "disabled"}</p>
       <p>Password: {isPassword ? "enabled" : "disabled"}</p>
     </>
-  )
+  );
 }

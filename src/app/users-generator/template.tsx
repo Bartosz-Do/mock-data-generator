@@ -4,6 +4,7 @@ import Sidebar from "@/components/sidebar";
 import Toggle from "@/components/ui/toggle";
 import Button from "@/components/ui/button";
 import { cn } from "@/utilities";
+import { fetchGenerated } from "@/utilities/fetchData";
 
 type GeneratorSettings = {
   name: boolean;
@@ -12,7 +13,7 @@ type GeneratorSettings = {
   avatar: boolean;
   email: boolean;
   password: boolean;
-}
+};
 
 export const UsersGeneratorContext = createContext<GeneratorSettings>({
   name: false,
@@ -30,6 +31,24 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const [avatar, setAvatar] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
+  const [count, setCount] = useState(10); // needs UI change
+  const [seed, setSeed] = useState<number | undefined>(2137); // needs UI change
+
+  const getFields = () => {
+    return [name, surname, username, avatar, email, password].reduce((acc, field, index) => {
+      if (field) {
+        return acc | (1 << index);
+      }
+      return acc;
+    }, 0);
+  };
+
+  const handleGenerate = async () => {
+    const fields = getFields();
+    if (fields) {
+      console.log(await fetchGenerated(count, fields, seed));
+    }
+  };
 
   return (
     <>
@@ -37,7 +56,6 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
         <Sidebar>
           <h2 className="mb-4">Settings</h2>
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
-
             <div>Name</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
               <Toggle onChange={(e) => setName(e.target.checked)} />
@@ -69,14 +87,14 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
             </div>
 
             <div className={cn("grid-col-span-2", "justify-self-center")}>
-              <Button variant="primary">Generate</Button>
+              <Button variant="primary" onClick={handleGenerate}>
+                Generate
+              </Button>
             </div>
           </div>
         </Sidebar>
-        <div className={cn("ml-10", "px-6")}>
-          {children}
-        </div>
+        <div className={cn("ml-10", "px-6")}>{children}</div>
       </UsersGeneratorContext.Provider>
     </>
-  )
+  );
 }
