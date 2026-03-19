@@ -1,0 +1,12 @@
+@layer components {
+  .sidebar {
+    position: fixed;
+    top: var(--size-xl);
+    left: 0;
+    width: var(--size-xxxl);
+    height: calc(100vh - var(--size-xl));
+    background-color: var(--color-bg-primary);
+    border-right: 1px solid var(--color-bg-disabled);
+    padding: var(--space-m);
+  }
+}

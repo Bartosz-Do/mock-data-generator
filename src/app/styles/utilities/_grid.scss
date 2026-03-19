@@ -1,0 +1,18 @@
+@use "../config" as config;
+
+@layer utilities {
+  .grid-2-columns {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+
+  .grid-col-span-2 {
+    grid-column: span 2;
+  }
+
+  @each $key, $value in config.$spacing {
+    .gap-#{"" + $key} {
+      gap: $value;
+    }
+  }
+}

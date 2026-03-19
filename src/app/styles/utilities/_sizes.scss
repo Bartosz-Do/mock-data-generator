@@ -1,0 +1,9 @@
+@use "../config" as config;
+
+@layer utilities {
+  @each $key, $value in config.$widths {
+    .width-#{"" + $key} {
+      width: $value;
+    }
+  }
+}

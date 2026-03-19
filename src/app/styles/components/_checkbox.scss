@@ -1,0 +1,42 @@
+@layer components {
+  .toggle {
+    appearance: none;
+    width: var(--size-s);
+    height: var(--size-xxs);
+    background-color: var(--color-bg-disabled);
+    border-radius: var(--border-radius-l);
+    border: 1px solid var(--color-bg-disabled);
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--size-50);
+      height: var(--size-100);
+      background-color: var(--color-gray-0);
+      border-radius: var(--border-radius-circle);
+      transition: 0.2s;
+    }
+
+    &:checked {
+      background-color: var(--color-brand-primary);
+      border-color: var(--color-brand-primary);
+
+      &:after {
+        left: var(--size-50);
+      }
+    }
+
+    &:disabled {
+      cursor: default;
+
+      &:after {
+        background-color: var(--color-fg-disabled);
+      }
+    }
+  }
+}

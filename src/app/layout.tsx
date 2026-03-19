@@ -4,7 +4,7 @@ import "./styles/default.scss";
 import Header from "@/components/header";
 
 export const metadata: Metadata = {
-  title: "test components",
+  title: "mock data generator",
   description: "test components",
 };
 
