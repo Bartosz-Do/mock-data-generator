@@ -2,6 +2,36 @@
   .button {
     --btn-fg-color: var(--color-fg-primary);
     --btn-bg-color: var(--color-bg-primary);
+    --btn-bg-color-hover: var(--color-bg-secondary);
+
+    background-color: var(--btn-bg-color);
+    color: var(--btn-fg-color);
+    border: 1px solid var(--btn-fg-color);
+    padding: 0 var(--space-s);
+    height: var(--size-s);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+    transition: 0.2s;
+
+    &:not(&:disabled):hover {
+      background-color: var(--btn-bg-color-hover);
+    }
+
+    &:not(&:disabled):active {
+      transform: scale(0.98);
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    &.primary {
+      --btn-bg-color: var(--color-bg-inverse);
+      --btn-fg-color: var(--color-fg-inverse);
+      --btn-bg-color-hover: var(--color-bg-secondary-inverse);
+    }
 
     &.secondary {
       --btn-bg-color: var(--color-bg-secondary);
@@ -11,28 +41,6 @@
     &:disabled {
       --btn-fg-color: var(--color-fg-disabled);
       --btn-bg-color: var(--color-bg-disabled);
-    }
-
-    background-color: var(--btn-bg-color);
-    color: var(--btn-fg-color);
-    border: 1px solid var(--btn-fg-color);
-    padding: var(--space-xs) var(--space-s);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: var(--font-size);
-    font-weight: var(--font-weight);
-    transition: 0.2s;
-
-    &:not(&:disabled):hover {
-      background-color: var(--color-bg-secondary);
-    }
-
-    &:not(&:disabled):active {
-      transform: scale(0.98);
-    }
-
-    &:disabled {
-      cursor: default;
     }
   }
 }

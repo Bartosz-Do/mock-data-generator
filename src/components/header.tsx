@@ -8,7 +8,7 @@ export default function Header() {
         <Link className="link-title" href="/"><h1>Mock data generator</h1></Link>
       </div>
       <div className="content nav">
-        <Link href="/random-users">random users</Link>
+        <Link href="/users-generator">users generator</Link>
       </div>
       <div className="content end"></div>
     </header>

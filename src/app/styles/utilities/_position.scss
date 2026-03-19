@@ -13,4 +13,31 @@
     display: flex;
     justify-content: center;
   }
+
+  .flex-align-start {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .flex-align-end {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .flex-align-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .justify-self-start {
+    justify-self: start;
+  }
+
+  .justify-self-end {
+    justify-self: end;
+  }
+
+  .justify-self-center {
+    justify-self: center;
+  }
 }
