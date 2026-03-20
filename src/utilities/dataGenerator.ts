@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-
+import { GeneratorArgs } from "../types/generator";
 // config start
 const errorSuccess = 0; // "Data generated successfully.";
 const errorInvalidFields = 1; // "Invalid fields selected.";
@@ -41,11 +41,10 @@ const generators = [
 ];
 // config end
 
-export function generateData(
-  count: number,
-  fields: number | string[],
-  seed?: number,
-): { result: number; data: Record<string, string>[] } {
+export function generateData({ count, fields, seed }: GeneratorArgs): {
+  result: number;
+  data: Record<string, string>[];
+} {
   let returnCode = errorSuccess;
 
   if (count > 300 || count < 1) {
@@ -53,7 +52,7 @@ export function generateData(
     returnCode = errorInvalidCount;
   }
 
-  if (seed) {
+  if (seed !== undefined) {
     faker.seed(seed);
   }
 

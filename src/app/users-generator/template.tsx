@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState, useEffect } from "react";
 import Sidebar from "@/components/sidebar";
 import Toggle from "@/components/ui/toggle";
 import Button from "@/components/ui/button";
@@ -34,6 +34,15 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const [count, setCount] = useState(10); // needs UI change
   const [seed, setSeed] = useState<number | undefined>(2137); // needs UI change
 
+  const { isLoading, refetch, data, error } = useFetch();
+
+  useEffect(() => {
+    if (data) {
+      // Data updated, can be used for further processing
+      console.log("Data received: ", data);
+    }
+  }, [data]);
+
   const getFields = () => {
     return [name, surname, username, avatar, email, password].reduce((acc, field, index) => {
       if (field) {
@@ -43,11 +52,10 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
     }, 0);
   };
 
-  const handleGenerate = async () => {
+  const handleGenerate = () => {
     const fields = getFields();
     if (fields) {
-      const data = await useFetch(count, fields, seed);
-      console.log(data);
+      refetch({ count, fields, seed });
     }
   };
 
@@ -59,38 +67,39 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
             <div>Name</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setName(e.target.checked)} />
+              <Toggle checked={name} onChange={(e) => setName(e.target.checked)} />
             </div>
 
             <div>Surname</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setSurname(e.target.checked)} />
+              <Toggle checked={surname} onChange={(e) => setSurname(e.target.checked)} />
             </div>
 
             <div>Username</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setUsername(e.target.checked)} />
+              <Toggle checked={username} onChange={(e) => setUsername(e.target.checked)} />
             </div>
 
             <div>Avatar</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setAvatar(e.target.checked)} />
+              <Toggle checked={avatar} onChange={(e) => setAvatar(e.target.checked)} />
             </div>
 
             <div>Email</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setEmail(e.target.checked)} />
+              <Toggle checked={email} onChange={(e) => setEmail(e.target.checked)} />
             </div>
 
             <div>Password</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle onChange={(e) => setPassword(e.target.checked)} />
+              <Toggle checked={password} onChange={(e) => setPassword(e.target.checked)} />
             </div>
 
             <div className={cn("grid-col-span-2", "justify-self-center")}>
-              <Button variant="primary" onClick={handleGenerate}>
+              <Button variant="primary" onClick={handleGenerate} disabled={isLoading}>
                 Generate
               </Button>
+              {error && <p className="error">{error}</p>}
             </div>
           </div>
         </Sidebar>
