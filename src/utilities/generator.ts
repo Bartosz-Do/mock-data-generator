@@ -43,15 +43,12 @@ const generators = [
 
 export function generateData(
   count: number,
-  fields: number,
+  fields: number | string[],
   seed?: number,
 ): { result: number; data: Record<string, string>[] } {
   let returnCode = errorSuccess;
 
-  if (fields >= 2 ** availableFields || fields < 1) {
-    console.error("Invalid fields: ", fields);
-    returnCode = errorInvalidFields;
-  } else if (count > 300 || count < 1) {
+  if (count > 300 || count < 1) {
     console.error("Count is invalid: ", count);
     returnCode = errorInvalidCount;
   }
@@ -60,20 +57,41 @@ export function generateData(
     faker.seed(seed);
   }
 
-  const data = [];
+  const data: Record<string, string>[] = [];
 
-  for (let i = 0; i < count; i++) {
-    const record: Record<string, string> = {};
-    generators.forEach(({ flag, key, generator }) => {
-      if (Math.floor(fields) & flag) {
-        record[key] = generator();
-      }
-    });
-    data.push(record);
+  if (typeof fields === "number") {
+    if (fields >= 2 ** availableFields || fields < 1) {
+      console.error("Invalid fields number: ", fields);
+      returnCode = errorInvalidFields;
+    }
+
+    for (let i = 0; i < count; i++) {
+      const record: Record<string, string> = {};
+      generators.forEach(({ flag, key, generator }) => {
+        if (Math.floor(fields) & flag) {
+          record[key] = generator();
+        }
+      });
+      data.push(record);
+    }
+  } else if (Array.isArray(fields)) {
+    for (let i = 0; i < count; i++) {
+      const record: Record<string, string> = {};
+      fields.forEach((field) => {
+        const generator = generators.find((g) => g.key === field);
+        if (generator) {
+          record[field] = generator.generator();
+        }
+      });
+      data.push(record);
+    }
+  } else {
+    console.error("Invalid fields type: ", fields);
+    returnCode = errorInvalidFields;
   }
 
   return {
     result: returnCode,
-    data: returnCode === errorSuccess ? data : [],
+    data: data,
   };
 }

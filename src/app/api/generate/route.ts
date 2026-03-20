@@ -7,12 +7,12 @@ interface Response {
     generatedAt: string;
     message: string;
   };
-  data?: Record<string, string>[];
+  data: Record<string, string>[];
 }
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   const body = await request.json();
-  const { count, fields, seed }: { count: number; fields: number; seed?: number } = body;
+  const { count, fields, seed }: { count: number; fields: number | string[]; seed?: number } = body;
 
   let message = "";
 

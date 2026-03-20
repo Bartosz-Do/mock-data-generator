@@ -4,7 +4,7 @@ import Sidebar from "@/components/sidebar";
 import Toggle from "@/components/ui/toggle";
 import Button from "@/components/ui/button";
 import { cn } from "@/utilities";
-import { fetchGenerated } from "@/utilities/fetchData";
+import { useFetch } from "@/hooks/useFetch";
 
 type GeneratorSettings = {
   name: boolean;
@@ -46,7 +46,8 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const handleGenerate = async () => {
     const fields = getFields();
     if (fields) {
-      console.log(await fetchGenerated(count, fields, seed));
+      const data = await useFetch(count, fields, seed);
+      console.log(data);
     }
   };
 
