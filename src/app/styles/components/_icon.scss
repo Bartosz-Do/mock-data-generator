@@ -1,0 +1,10 @@
+@layer components {
+  .icon {
+    width: var(--size-xs);
+    height: var(--size-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+  }
+}

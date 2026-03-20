@@ -1,6 +1,7 @@
 "use client"
 import { ReactNode, useState, useEffect, useRef } from "react";
 import { cn } from "@/utilities";
+import Icon from "./ui/icon";
 
 export default function Sidebar({ children }: { children: ReactNode }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -29,8 +30,9 @@ export default function Sidebar({ children }: { children: ReactNode }) {
     <>
       <div className="sidebar-toggle" ref={sidebarToggleRef}>
         <div className="content">
-          <div className={cn("gap-2", "flex-start")}>
-            <p className="link" onClick={toggleSidebar}>Settings</p>
+          <div className={cn("gap-1", "flex-start", "link")} onClick={toggleSidebar}>
+            <Icon name="settings" className="link" />
+            <p>Settings</p>
           </div>
         </div>
       </div>
