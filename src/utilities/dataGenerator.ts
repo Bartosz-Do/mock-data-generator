@@ -1,3 +1,4 @@
+"use server";
 import { faker } from "@faker-js/faker";
 import { GeneratorArgs } from "../types/generator";
 // config start
@@ -41,10 +42,10 @@ const generators = [
 ];
 // config end
 
-export function generateData({ count, fields, seed }: GeneratorArgs): {
+export async function generateData({ count, fields, seed }: GeneratorArgs): Promise<{
   result: number;
   data: Record<string, string>[];
-} {
+}> {
   let returnCode = errorSuccess;
 
   if (count > 300 || count < 1) {

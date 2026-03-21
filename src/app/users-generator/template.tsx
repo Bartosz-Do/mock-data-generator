@@ -5,15 +5,7 @@ import Toggle from "@/components/ui/toggle";
 import Button from "@/components/ui/button";
 import { cn } from "@/utilities";
 import { useFetch } from "@/hooks/useFetch";
-
-type GeneratorSettings = {
-  name: boolean;
-  surname: boolean;
-  username: boolean;
-  avatar: boolean;
-  email: boolean;
-  password: boolean;
-};
+import { GeneratorSettings } from "@/types/generator";
 
 export const UsersGeneratorContext = createContext<GeneratorSettings>({
   name: false,
@@ -25,6 +17,14 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
+  const buildQuery = (papuga: Record<string, string>[]): string => {
+    const columns = Object.keys(papuga[0]).join(", ");
+    const values = papuga
+      .map((row) => `(${Object.values(row).map((value) => `'${value}'`).join(", ")})`)
+      .join(", ");
+    return `INSERT INTO users (${columns}) VALUES ${values};`;
+  }
+
   const [name, setName] = useState(false);
   const [surname, setSurname] = useState(false);
   const [username, setUsername] = useState(false);
@@ -40,6 +40,10 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
     if (data) {
       // Data updated, can be used for further processing
       console.log("Data received: ", data);
+      const jsonString = JSON.stringify(data.data, null, 2);
+      const sqlQuery = buildQuery(data.data);
+      console.log("SQL Query: ", sqlQuery);
+      console.log("JSON String: ", jsonString);
     }
   }, [data]);
 

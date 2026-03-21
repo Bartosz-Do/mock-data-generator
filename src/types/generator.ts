@@ -12,3 +12,12 @@ export interface GeneratorArgs {
   fields: number | string[];
   seed?: number;
 }
+
+export interface GeneratorSettings {
+  name: boolean;
+  surname: boolean;
+  username: boolean;
+  avatar: boolean;
+  email: boolean;
+  password: boolean;
+}
