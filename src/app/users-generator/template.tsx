@@ -25,8 +25,6 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
-  let a = 1;
-  console.log(a);
   const [name, setName] = useState(false);
   const [surname, setSurname] = useState(false);
   const [username, setUsername] = useState(false);
