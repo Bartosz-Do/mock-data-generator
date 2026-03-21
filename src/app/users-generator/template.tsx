@@ -103,7 +103,9 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
             </div>
           </div>
         </Sidebar>
-        <div className={cn("ml-10", "px-6")}>{children}</div>
+        <div className="main-with-sidebar">
+          {children}
+        </div>
       </UsersGeneratorContext.Provider>
     </>
   );

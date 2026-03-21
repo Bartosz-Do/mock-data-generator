@@ -1,0 +1,30 @@
+@layer components {
+  .icon {
+    width: var(--size-xs);
+    height: var(--size-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+
+    &.size-s {
+      width: var(--size-s);
+      height: var(--size-s);
+    }
+
+    &.size-m {
+      width: var(--size-m);
+      height: var(--size-m);
+    }
+
+    &.size-l {
+      width: var(--size-l);
+      height: var(--size-l);
+    }
+
+    &.size-xl {
+      width: var(--size-xl);
+      height: var(--size-xl);
+    }
+  }
+}

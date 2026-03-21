@@ -9,7 +9,8 @@
     font-weight: var(--font-weight-medium);
   }
 
-  a {
+  a,
+  .link {
     color: inherit;
     text-decoration: underline;
     text-decoration-thickness: var(--line-thickness-xs);
