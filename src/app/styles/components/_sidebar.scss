@@ -47,11 +47,11 @@
       top: calc(var(--size-xl) + var(--size-m));
 
       &.hidden {
-        left: -100%;
+        transform: translateX(-100%);
       }
 
       &.visible {
-        left: 0;
+        transform: translateX(0);
       }
     }
   }
