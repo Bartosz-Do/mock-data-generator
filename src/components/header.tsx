@@ -39,7 +39,7 @@ export default function Header() {
       <div className="content nav">
         <Link href="/users-generator" onClick={hideSidebar}>users generator</Link>
       </div>
-      <div className="content end">
+      <div className="content end mobile">
         <Icon name="hamburgerMenu" className="size-m link" onClick={toggleSidebar} />
       </div>
 
