@@ -1,0 +1,40 @@
+@layer components {
+  .switch-section {
+    .options {
+      box-shadow: var(--box-shadow-primary);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      background-color: var(--color-bg-secondary);
+      width: fit-content;
+      display: grid;
+      grid-auto-columns: minmax(max-content, 1fr);
+      grid-auto-flow: column;
+      border-bottom: 1px solid var(--color-bg-disabled);
+
+      .option {
+        padding: var(--space-xxs) var(--space-l);
+        border-radius: inherit;
+        text-align: center;
+        cursor: pointer;
+
+        &.active {
+          background-color: var(--color-bg-primary);
+        }
+      }
+    }
+
+    .content {
+      background-color: var(--color-bg-primary);
+      border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
+      box-shadow: var(--box-shadow-primary);
+      padding: var(--space-m);
+
+      div {
+        display: none;
+
+        &.active {
+          display: block;
+        }
+      }
+    }
+  }
+}

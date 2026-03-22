@@ -1,6 +1,7 @@
 "use client";
 import { UsersGeneratorContext } from "./template";
 import { useContext } from "react";
+import SwitchSection from "@/components/switch-section";
 
 export default function UsersGeneratorPage() {
   const {
@@ -21,6 +22,16 @@ export default function UsersGeneratorPage() {
       <p>Avatar: {isAvatar ? "enabled" : "disabled"}</p>
       <p>Email: {isEmail ? "enabled" : "disabled"}</p>
       <p>Password: {isPassword ? "enabled" : "disabled"}</p>
+      <SwitchSection className="mt-2">
+        <div id="json">
+          <p>json test</p>
+          <p>test</p>
+        </div>
+
+        <div id="sql">
+          <p>sql test</p>
+        </div>
+      </SwitchSection>
     </>
   );
 }
