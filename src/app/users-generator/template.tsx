@@ -17,9 +17,9 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
-  const buildQuery = (papuga: Record<string, string>[]): string => {
-    const columns = Object.keys(papuga[0]).join(", ");
-    const values = papuga
+  const buildQuery = (data: Record<string, string>[]): string => {
+    const columns = Object.keys(data[0]).join(", ");
+    const values = data
       .map((row) => `(${Object.values(row).map((value) => `'${value}'`).join(", ")})`)
       .join(", ");
     return `INSERT INTO users (${columns}) VALUES ${values};`;
