@@ -36,7 +36,7 @@ export default function SwitchSection({ children, className }: {
               {
                 ...el.props,
                 key: i,
-                className: cn(el.props.className, { "active": i === activeIndex })
+                className: cn(el.props.className, "content-item", { "active": i === activeIndex })
               },
               el.props.children
             );

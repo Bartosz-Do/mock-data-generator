@@ -25,7 +25,7 @@ export default function UsersGeneratorPage() {
       <SwitchSection className="mt-2">
         <div id="json">
           <p>json test</p>
-          <p>test</p>
+          <div>test</div>
         </div>
 
         <div id="sql">
