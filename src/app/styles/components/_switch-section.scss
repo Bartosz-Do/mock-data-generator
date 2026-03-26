@@ -36,6 +36,12 @@
       border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
       box-shadow: var(--box-shadow-primary);
       padding: var(--space-m);
+      overflow-x: hidden;
+
+      * {
+        white-space: normal;
+        overflow-wrap: break-word;
+      }
 
       .content-item {
         display: none;

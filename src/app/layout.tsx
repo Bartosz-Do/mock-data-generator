@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Metadata } from "next";
 import "./styles/default.scss";
+import "prismjs/themes/prism-tomorrow.css";
 import Header from "@/components/header";
 
 export const metadata: Metadata = {

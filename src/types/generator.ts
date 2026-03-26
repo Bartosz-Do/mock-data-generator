@@ -20,4 +20,6 @@ export interface GeneratorSettings {
   avatar: boolean;
   email: boolean;
   password: boolean;
+  count: number;
+  seed: number | undefined;
 }
