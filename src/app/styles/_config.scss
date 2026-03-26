@@ -30,6 +30,8 @@ $props: (
   color-fg-disabled: light-dark(var(--color-gray-500), var(--color-gray-400)),
 
   box-shadow-primary: light-dark(0 0 15px 1px rgba(0, 0, 0, 0.25), 0 0 15px 1px rgba(255, 255, 255, 0.25)),
+  box-shadow-focus: (0 0 0px 2px var(--color-bg-primary),
+    0 0 0px 4px color-mix(in oklab, var(--color-brand-primary), var(--color-bg-primary))),
 
   size-xxxs: 8px,
   size-xxs: 16px,
