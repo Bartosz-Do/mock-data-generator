@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, createContext, useState, useEffect } from "react";
+import { ReactNode, createContext, useState } from "react";
 import Sidebar from "@/components/sidebar";
 import { Toggle, Input } from "@/components/ui";
 import { cn } from "@/utilities";
@@ -17,14 +17,6 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
-  const buildQuery = (data: Record<string, string>[]): string => {
-    const columns = Object.keys(data[0]).join(", ");
-    const values = data
-      .map((row) => `(${Object.values(row).map((value) => `'${value}'`).join(", ")})`)
-      .join(", ");
-    return `INSERT INTO users (${columns}) VALUES ${values};`;
-  }
-
   const [name, setName] = useState(false);
   const [surname, setSurname] = useState(false);
   const [username, setUsername] = useState(false);
@@ -42,12 +34,12 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
             <div>Count</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={count || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCount(Number(e.target.value) ? Number(e.target.value) : 0)} />
+              <Input type="number" value={count.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCount(Number(e.target.value) ? Number(e.target.value) : 0)} />
             </div>
 
             <div>Seed</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={seed || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(Number(e.target.value) ? Number(e.target.value) : undefined)} />
+              <Input type="number" value={seed?.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(Number(e.target.value) ? Number(e.target.value) : undefined)} />
             </div>
 
             <div>Name</div>
