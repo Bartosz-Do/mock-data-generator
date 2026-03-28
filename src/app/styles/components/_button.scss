@@ -42,5 +42,10 @@
       --btn-fg-color: var(--color-fg-disabled);
       --btn-bg-color: var(--color-bg-disabled);
     }
+
+    &:focus {
+      box-shadow: var(--box-shadow-focus);
+      outline: none;
+    }
   }
 }
