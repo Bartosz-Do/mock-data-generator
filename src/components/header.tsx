@@ -34,13 +34,13 @@ export default function Header() {
   return (
     <header className="header" ref={headerRef}>
       <div className="content start">
-        <Link className="link-title" href="/" onClick={hideSidebar}><h1>Mock data generator</h1></Link>
+        <Link className="link-title" href="/" onClick={hideSidebar}><h2>Mock data generator</h2></Link>
       </div>
       <div className="content nav">
         <Link href="/users-generator" onClick={hideSidebar}>users generator</Link>
       </div>
       <div className="content end mobile">
-        <Icon name="hamburgerMenu" className="size-m link" onClick={toggleSidebar} />
+        <Icon name="hamburgerMenu" className="size-s link" onClick={toggleSidebar} />
       </div>
 
       <div className={cn("nav-sidebar", { "hidden": !isSidebarOpen, "visible": isSidebarOpen })} ref={sidebarRef}>

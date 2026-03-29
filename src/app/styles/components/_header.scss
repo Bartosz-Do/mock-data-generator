@@ -5,7 +5,7 @@
     left: 0;
     z-index: 10000;
     width: 100%;
-    height: var(--size-xl);
+    height: var(--size-l);
     border-bottom: 2px solid var(--color-bg-disabled);
     background-color: var(--color-bg-primary);
     display: grid;
@@ -15,6 +15,7 @@
 
     @media (max-width: 768px) {
       gap: var(--space-s);
+      padding: 0 var(--space-s);
     }
 
     .content {
@@ -35,7 +36,7 @@
         gap: var(--space-m);
 
         a {
-          font-size: var(--font-size-m);
+          font-size: var(--font-size);
           transition: 0.2s;
 
           @media (max-width: 768px) {
@@ -48,7 +49,7 @@
     .nav-sidebar {
       display: none;
       position: fixed;
-      top: var(--size-xl);
+      top: var(--size-l);
       right: 0;
       width: var(--size-xxl);
       height: calc(100vh - var(--size-xl));
