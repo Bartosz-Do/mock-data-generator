@@ -2,7 +2,7 @@
 import { UsersGeneratorContext } from "./template";
 import { useContext, useMemo } from "react";
 import SwitchSection from "@/components/switch-section";
-import { useFetchUsers } from "@/hooks/useFetchUsers";
+import { useFetchPosts } from "@/hooks/useFetchPosts";
 import { Button } from "@/components/ui";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json";
@@ -11,28 +11,11 @@ import buildQuery from "@/utilities/buildQuery";
 
 export default function UsersGeneratorPage() {
   const {
-    name: isName,
-    surname: isSurname,
-    username: isUsername,
-    avatar: isAvatar,
-    email: isEmail,
-    password: isPassword,
     count,
     seed,
   } = useContext(UsersGeneratorContext);
 
-  const { isLoading, refetch, data } = useFetchUsers();
-
-  const fields = useMemo(() => {
-    let fields = 0;
-    if (isName) fields |= 1;
-    if (isSurname) fields |= 2;
-    if (isUsername) fields |= 4;
-    if (isAvatar) fields |= 8;
-    if (isEmail) fields |= 16;
-    if (isPassword) fields |= 32;
-    return fields;
-  }, [isName, isSurname, isUsername, isAvatar, isEmail, isPassword]);
+  const { isLoading, refetch, data } = useFetchPosts();
 
   const highlightedJson = useMemo(() => {
     if (!data) return "[]";
@@ -49,18 +32,12 @@ export default function UsersGeneratorPage() {
   }, [data]);
 
   const handleGenerate = () => {
-    if (fields) refetch({ count, fields, seed });
+    refetch({ count, seed });
   }
 
   return (
     <>
-      <h1>Random users generator</h1>
-      <p>Name: {isName ? "enabled" : "disabled"}</p>
-      <p>Surname: {isSurname ? "enabled" : "disabled"}</p>
-      <p>Username: {isUsername ? "enabled" : "disabled"}</p>
-      <p>Avatar: {isAvatar ? "enabled" : "disabled"}</p>
-      <p>Email: {isEmail ? "enabled" : "disabled"}</p>
-      <p>Password: {isPassword ? "enabled" : "disabled"}</p>
+      <h1>Random posts generator</h1>
 
       <Button variant="primary" onClick={handleGenerate} disabled={isLoading}>Generate</Button>
 

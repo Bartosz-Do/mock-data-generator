@@ -1,10 +1,5 @@
-"use server";
 import { faker } from "@faker-js/faker";
-import { GeneratorArgs } from "../types/generator";
-// config start
-const errorSuccess = 0; // "Data generated successfully.";
-const errorInvalidFields = 1; // "Invalid fields selected.";
-const errorInvalidCount = 2; // "Invalid count, must be between 1 and 300.";
+import { UserArgs, GeneratorResponse } from "../types/generator";
 
 const availableFields = 6; // 6 fields: name, surname, username, email, password, avatar
 
@@ -40,17 +35,15 @@ const generators = [
     generator: () => faker.internet.password(),
   },
 ];
-// config end
 
-export async function generateData({ count, fields, seed }: GeneratorArgs): Promise<{
-  result: number;
-  data: Record<string, string>[];
-}> {
-  let returnCode = errorSuccess;
+export default async function generateData({ count, fields, seed }: UserArgs): Promise<GeneratorResponse> {
 
-  if (count > 300 || count < 1) {
-    console.error("Count is invalid: ", count);
-    returnCode = errorInvalidCount;
+  if (typeof count !== "number" || count > 300 || count < 1) {
+    // console.error("Count is invalid: ", count); // dev
+    return {
+      ok: false,
+      error: "Invalid count, must be a number between 1 and 300.",
+    };
   }
 
   if (seed !== undefined) {
@@ -61,8 +54,11 @@ export async function generateData({ count, fields, seed }: GeneratorArgs): Prom
 
   if (typeof fields === "number") {
     if (fields >= 2 ** availableFields || fields < 1) {
-      console.error("Invalid fields number: ", fields);
-      returnCode = errorInvalidFields;
+      // console.error("Invalid fields number: ", fields); // dev
+      return {
+        ok: false,
+        error: "Invalid fields number, must be between 1 and " + (2 ** availableFields - 1),
+      };
     }
 
     for (let i = 0; i < count; i++) {
@@ -86,12 +82,15 @@ export async function generateData({ count, fields, seed }: GeneratorArgs): Prom
       data.push(record);
     }
   } else {
-    console.error("Invalid fields type: ", fields);
-    returnCode = errorInvalidFields;
+    // console.error("Invalid fields type: ", fields); // dev
+    return {
+      ok: false,
+      error: "Invalid fields type, must be a number or an array.",
+    };
   }
 
   return {
-    result: returnCode,
-    data: data,
+    ok: true,
+    value: data,
   };
 }
