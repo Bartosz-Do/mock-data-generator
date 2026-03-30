@@ -1,19 +1,15 @@
-export interface GeneratorResponse {
-  meta: {
-    count: number;
-    generatedAt: string;
-    message: string;
-  };
-  data: Record<string, string>[];
-}
-
-export interface GeneratorArgs {
+export interface UserArgs {
   count: number;
   fields: number | string[];
   seed?: number;
 }
 
-export interface GeneratorSettings {
+export interface PostArgs {
+  count: number;
+  seed?: number;
+}
+
+export interface UserSettings {
   name: boolean;
   surname: boolean;
   username: boolean;
@@ -23,3 +19,15 @@ export interface GeneratorSettings {
   count: number;
   seed: number | undefined;
 }
+
+export interface Ok {
+  ok: true,
+  value: Record<string, string>[]
+}
+
+export interface Err {
+  ok: false,
+  error: string
+}
+
+export type GeneratorResponse = Ok | Err;
