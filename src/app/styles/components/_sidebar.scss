@@ -20,7 +20,7 @@
       padding: 0 var(--space-s);
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 960px) {
       display: block;
     }
   }
@@ -38,11 +38,8 @@
     overflow-y: auto;
 
     @media (max-width: 960px) {
-      width: var(--size-xxl);
       padding: var(--space-s);
-    }
-
-    @media (max-width: 768px) {
+      width: fit-content;
       transition: 0.5s;
       top: calc(var(--size-xl) + var(--size-m));
 
@@ -61,11 +58,6 @@
     padding: 0 var(--space-xl);
 
     @media (max-width: 960px) {
-      margin-left: var(--size-xxl);
-      padding: 0 var(--space-l);
-    }
-
-    @media (max-width: 768px) {
       margin-left: 0;
       padding: var(--space-l) var(--space-m);
     }

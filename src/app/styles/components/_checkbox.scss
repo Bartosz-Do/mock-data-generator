@@ -38,5 +38,10 @@
         background-color: var(--color-fg-disabled);
       }
     }
+
+    &:focus {
+      box-shadow: var(--box-shadow-focus);
+      outline: none;
+    }
   }
 }
