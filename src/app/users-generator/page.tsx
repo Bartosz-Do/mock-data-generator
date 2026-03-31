@@ -25,19 +25,23 @@ export default function UsersGeneratorPage() {
 
   const { isLoading, refetch, data, error } = useFetch();
 
-  const [jsonText, setJsonText] = useState<string>("");
-  const [sqlText, setSqlText] = useState<string>("");
+  const jsonText = useMemo<string>(() => {
+    const jsonString = JSON.stringify(data?.data ?? [], null, 2);
+    return jsonString;
+  }, [data]);
+  const sqlText = useMemo<string>(() => {
+    const sqlString = buildQuery(data?.data ?? []);
+    return sqlString;
+  }, [data]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const highlightedJson = useMemo(() => {
     const jsonString = JSON.stringify(data?.data ?? [], null, 2);
-    setJsonText(jsonString);
     return Prism.highlight(jsonString, Prism.languages.json, "json");
   }, [data]);
 
   const highlightedSql = useMemo(() => {
     const sqlString = buildQuery(data?.data ?? []);
-    setSqlText(sqlString);
     return Prism.highlight(sqlString, Prism.languages.sql, "sql");
   }, [data]);
 
