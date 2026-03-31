@@ -1,7 +1,7 @@
 @layer components {
   .sidebar-toggle {
     position: fixed;
-    top: var(--size-xl);
+    top: var(--size-l);
     left: 0;
     width: var(--size-100);
     height: var(--size-m);
@@ -27,10 +27,10 @@
 
   .sidebar {
     position: fixed;
-    top: var(--size-xl);
+    top: var(--size-l);
     left: 0;
     width: var(--size-xxxl);
-    height: calc(100vh - var(--size-xl));
+    height: calc(100vh - var(--size-l));
     background-color: var(--color-bg-secondary);
     border-right: 1px solid var(--color-bg-disabled);
     padding: var(--space-m);
@@ -41,7 +41,7 @@
       padding: var(--space-s);
       width: fit-content;
       transition: 0.5s;
-      top: calc(var(--size-xl) + var(--size-m));
+      top: calc(var(--size-l) + var(--size-m));
 
       &.hidden {
         transform: translateX(-100%);
