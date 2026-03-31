@@ -1,6 +1,6 @@
 "use client";
 import { UsersGeneratorContext } from "./template";
-import { useContext, useMemo } from "react";
+import { useContext, useMemo, useState } from "react";
 import SwitchSection from "@/components/switch-section";
 import { useFetch } from "@/hooks/useFetch";
 import { Button } from "@/components/ui";
@@ -8,6 +8,7 @@ import * as Prism from "prismjs";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
+import Icon from "@/components/ui/icon";
 
 export default function UsersGeneratorPage() {
   const {
@@ -23,13 +24,18 @@ export default function UsersGeneratorPage() {
 
   const { isLoading, refetch, data, error } = useFetch();
 
+  const [jsonText, setJsonText] = useState<string>("");
+  const [sqlText, setSqlText] = useState<string>("");
+
   const highlightedJson = useMemo(() => {
     const jsonString = JSON.stringify(data?.data ?? [], null, 2);
+    setJsonText(jsonString);
     return Prism.highlight(jsonString, Prism.languages.json, "json");
   }, [data]);
 
   const highlightedSql = useMemo(() => {
     const sqlString = buildQuery(data?.data ?? []);
+    setSqlText(sqlString);
     return Prism.highlight(sqlString, Prism.languages.sql, "sql");
   }, [data]);
 
@@ -44,7 +50,18 @@ export default function UsersGeneratorPage() {
         isPassword ? "password" : "",
       ], seed
     })
-  }
+  };
+  const copyJson = async () => {
+    try {
+      await navigator.clipboard.writeText(jsonText);
+    } catch { }
+  };
+
+  const copySql = async () => {
+    try {
+      await navigator.clipboard.writeText(sqlText);
+    } catch { }
+  };
 
   return (
     <>
@@ -60,21 +77,33 @@ export default function UsersGeneratorPage() {
 
       <SwitchSection className="mt-2">
         <div id="json">
-          <pre>
-            <code
-              className="language-json"
-              dangerouslySetInnerHTML={{ __html: highlightedJson }}
-            />
-          </pre>
+          <div className="code">
+            <Button onClick={copyJson} className="copy">
+              <Icon name="copy" className="size-xs" />
+              Copy
+            </Button>
+            <pre>
+              <code
+                className="language-json"
+                dangerouslySetInnerHTML={{ __html: highlightedJson }}
+              />
+            </pre>
+          </div>
         </div>
 
         <div id="sql">
-          <pre>
-            <code
-              className="language-sql"
-              dangerouslySetInnerHTML={{ __html: highlightedSql }}
-            />
-          </pre>
+          <div className="code">
+            <Button onClick={copySql} className="copy">
+              <Icon name="copy" className="size-xs" />
+              Copy
+            </Button>
+            <pre>
+              <code
+                className="language-sql"
+                dangerouslySetInnerHTML={{ __html: highlightedSql }}
+              />
+            </pre>
+          </div>
         </div>
       </SwitchSection>
     </>

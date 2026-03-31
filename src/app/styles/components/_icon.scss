@@ -2,10 +2,20 @@
   .icon {
     width: var(--size-xs);
     height: var(--size-xs);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     color: inherit;
+
+    &.size-xxs {
+      width: var(--size-xxs);
+      height: var(--size-xxs);
+    }
+
+    &.size-xs {
+      width: var(--size-xs);
+      height: var(--size-xs);
+    }
 
     &.size-s {
       width: var(--size-s);
