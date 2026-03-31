@@ -9,6 +9,7 @@ import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
 import Icon from "@/components/ui/icon";
+import { cn } from "@/utilities";
 
 export default function UsersGeneratorPage() {
   const {
@@ -26,6 +27,7 @@ export default function UsersGeneratorPage() {
 
   const [jsonText, setJsonText] = useState<string>("");
   const [sqlText, setSqlText] = useState<string>("");
+  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const highlightedJson = useMemo(() => {
     const jsonString = JSON.stringify(data?.data ?? [], null, 2);
@@ -54,12 +56,20 @@ export default function UsersGeneratorPage() {
   const copyJson = async () => {
     try {
       await navigator.clipboard.writeText(jsonText);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
     } catch { }
   };
 
   const copySql = async () => {
     try {
       await navigator.clipboard.writeText(sqlText);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
     } catch { }
   };
 
@@ -78,9 +88,10 @@ export default function UsersGeneratorPage() {
       <SwitchSection className="mt-2">
         <div id="json">
           <div className="code">
-            <Button onClick={copyJson} className="copy">
+            <Button onClick={copyJson} className={cn("copy", { "display-none": highlightedJson === "" })}>
               <Icon name="copy" className="size-xs" />
               Copy
+              <div className={cn("feedback", { "display-none": !isCopied })}>Copied to clipboard</div>
             </Button>
             <pre>
               <code
@@ -93,9 +104,10 @@ export default function UsersGeneratorPage() {
 
         <div id="sql">
           <div className="code">
-            <Button onClick={copySql} className="copy">
+            <Button onClick={copySql} className={cn("copy", { "display-none": highlightedSql === "" })}>
               <Icon name="copy" className="size-xs" />
               Copy
+              <div className={cn("feedback", { "display-none": !isCopied })}>Copied to clipboard</div>
             </Button>
             <pre>
               <code
@@ -104,8 +116,8 @@ export default function UsersGeneratorPage() {
               />
             </pre>
           </div>
-        </div>
-      </SwitchSection>
+        </div >
+      </SwitchSection >
     </>
   );
 }
