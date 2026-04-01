@@ -7,12 +7,9 @@ export async function POST(request: NextRequest) {
   try {
     const rateLimit = await checkRateLimit(request);
     if (!rateLimit.success) {
-      return NextResponse.json(
-        { error: "Too many requests" },
-        { status: 429, headers: rateLimit.headers }
-      );
+      return NextResponse.json({ error: "Too many requests" }, { status: 429, headers: rateLimit.headers });
     }
-    
+
     const body = await request.json();
     const { count, fields, seed }: UserArgs = body;
 

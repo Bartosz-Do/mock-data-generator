@@ -1,11 +1,8 @@
-"use client"
+"use client";
 import { ReactNode, Children, useEffect, useState, isValidElement, createElement } from "react";
 import { cn } from "@/utilities";
 
-export default function SwitchSection({ children, className }: {
-  children: ReactNode,
-  className?: string
-}) {
+export default function SwitchSection({ children, className }: { children: ReactNode; className?: string }) {
   const [childrenArray, setChildrenArray] = useState<ReactNode[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
@@ -15,7 +12,6 @@ export default function SwitchSection({ children, className }: {
 
   return (
     <div className={cn("switch-section", className)}>
-
       <div className="options">
         {childrenArray.map((el: ReactNode, i: number) => {
           if (isValidElement<{ id?: string }>(el)) {
@@ -30,19 +26,19 @@ export default function SwitchSection({ children, className }: {
 
       <div className="content">
         {childrenArray.map((el: ReactNode, i: number) => {
-          if (isValidElement<{ id?: string, children?: ReactNode, className?: string }>(el)) {
+          if (isValidElement<{ id?: string; children?: ReactNode; className?: string }>(el)) {
             return createElement(
               "div",
               {
                 ...el.props,
                 key: i,
-                className: cn(el.props.className, "content-item", { "active": i === activeIndex })
+                className: cn(el.props.className, "content-item", { active: i === activeIndex }),
               },
-              el.props.children
+              el.props.children,
             );
           }
         })}
       </div>
     </div>
-  )
+  );
 }

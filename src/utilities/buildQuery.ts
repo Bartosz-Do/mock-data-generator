@@ -5,7 +5,12 @@ export default function buildUserQuery(data: Ok): string {
 
   const columns = Object.keys(data.value[0]).join(", ");
   const values = data.value
-    .map((row) => `(${Object.values(row).map((value) => `"${value}"`).join(", ")})`)
+    .map(
+      (row) =>
+        `(${Object.values(row)
+          .map((value) => `"${value}"`)
+          .join(", ")})`,
+    )
     .join(",\n");
   return `INSERT INTO ${tableName} (${columns}) VALUES\n${values};`;
 }

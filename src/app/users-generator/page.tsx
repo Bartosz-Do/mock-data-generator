@@ -50,7 +50,7 @@ export default function UsersGeneratorPage() {
 
   const handleGenerate = () => {
     if (fields) refetch({ count, fields, seed });
-  }
+  };
 
   return (
     <>
@@ -62,24 +62,20 @@ export default function UsersGeneratorPage() {
       <p>Email: {isEmail ? "enabled" : "disabled"}</p>
       <p>Password: {isPassword ? "enabled" : "disabled"}</p>
 
-      <Button variant="primary" onClick={handleGenerate} disabled={isLoading}>Generate</Button>
+      <Button variant="primary" onClick={handleGenerate} disabled={isLoading}>
+        Generate
+      </Button>
 
       <SwitchSection className="mt-2">
         <div id="json">
           <pre>
-            <code
-              className="language-json"
-              dangerouslySetInnerHTML={{ __html: highlightedJson }}
-            />
+            <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedJson }} />
           </pre>
         </div>
 
         <div id="sql">
           <pre>
-            <code
-              className="language-sql"
-              dangerouslySetInnerHTML={{ __html: highlightedSql }}
-            />
+            <code className="language-sql" dangerouslySetInnerHTML={{ __html: highlightedSql }} />
           </pre>
         </div>
       </SwitchSection>
