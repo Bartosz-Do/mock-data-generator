@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { ReactNode, useState, useEffect, useRef } from "react";
 import { cn } from "@/utilities";
 import Icon from "./ui/icon";
@@ -14,7 +14,12 @@ export default function Sidebar({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const HideSidebarOnClick = (e: MouseEvent) => {
-      if (sidebarRef.current && sidebarToggleRef.current && !sidebarRef.current.contains(e.target as Node) && !sidebarToggleRef.current.contains(e.target as Node)) {
+      if (
+        sidebarRef.current &&
+        sidebarToggleRef.current &&
+        !sidebarRef.current.contains(e.target as Node) &&
+        !sidebarToggleRef.current.contains(e.target as Node)
+      ) {
         setIsSidebarOpen(false);
       }
     };
@@ -23,7 +28,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
 
     return () => {
       document.removeEventListener("click", HideSidebarOnClick);
-    }
+    };
   }, []);
 
   return (
@@ -36,9 +41,9 @@ export default function Sidebar({ children }: { children: ReactNode }) {
           </div>
         </div>
       </div>
-      <div className={cn("sidebar", { "visible": isSidebarOpen, "hidden": !isSidebarOpen })} ref={sidebarRef}>
+      <div className={cn("sidebar", { visible: isSidebarOpen, hidden: !isSidebarOpen })} ref={sidebarRef}>
         {children}
       </div>
     </>
-  )
+  );
 }

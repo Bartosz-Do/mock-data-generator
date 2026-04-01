@@ -37,7 +37,6 @@ const generators = [
 ];
 
 export default async function generateData({ count, fields, seed }: UserArgs): Promise<GeneratorResponse> {
-
   if (typeof count !== "number" || count > 300 || count < 1) {
     // console.error("Count is invalid: ", count); // dev
     return {

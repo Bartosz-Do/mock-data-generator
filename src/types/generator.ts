@@ -21,13 +21,13 @@ export interface UserSettings {
 }
 
 export interface Ok {
-  ok: true,
-  value: Record<string, string>[]
+  ok: true;
+  value: Record<string, string>[];
 }
 
 export interface Err {
-  ok: false,
-  error: string
+  ok: false;
+  error: string;
 }
 
 export type GeneratorResponse = Ok | Err;
