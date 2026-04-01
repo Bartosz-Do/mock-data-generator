@@ -11,6 +11,12 @@ const icons = {
       <rect fill="currentColor" width="12" height="2" x="2" y="7" />
       <rect fill="currentColor" width="12" height="2" x="2" y="3" />
     </svg>
+  ),
+  copy: (
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <path stroke="currentColor" strokeLinejoin="round" fill="none" d="M5.75 3.75h6v10h-6z" />
+      <path stroke="currentColor" strokeLinejoin="round" fill="none" d="M5.75 12.25h-1.5v-10h6v1.5" />
+    </svg>
   )
 }
 
