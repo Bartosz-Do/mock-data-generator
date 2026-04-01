@@ -80,14 +80,9 @@ export default function UsersGeneratorPage() {
   return (
     <>
       <h1>Random users generator</h1>
-      <p>Name: {isName ? "enabled" : "disabled"}</p>
-      <p>Surname: {isSurname ? "enabled" : "disabled"}</p>
-      <p>Username: {isUsername ? "enabled" : "disabled"}</p>
-      <p>Avatar: {isAvatar ? "enabled" : "disabled"}</p>
-      <p>Email: {isEmail ? "enabled" : "disabled"}</p>
-      <p>Password: {isPassword ? "enabled" : "disabled"}</p>
+      <p>You can choose what gets generated in the settings.</p>
 
-      <Button variant="primary" onClick={handleGenerate} disabled={isLoading}>Generate</Button>
+      <Button variant="primary" onClick={handleGenerate} disabled={isLoading} className="mt-4">Generate</Button>
 
       <SwitchSection className="mt-2">
         <div id="json">
