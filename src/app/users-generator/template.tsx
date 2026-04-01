@@ -3,9 +3,9 @@ import { ReactNode, createContext, useState } from "react";
 import Sidebar from "@/components/sidebar";
 import { Toggle, Input } from "@/components/ui";
 import { cn } from "@/utilities";
-import { GeneratorSettings } from "@/types/generator";
+import { UserSettings } from "@/types/generator";
 
-export const UsersGeneratorContext = createContext<GeneratorSettings>({
+export const UsersGeneratorContext = createContext<UserSettings>({
   name: false,
   surname: false,
   username: false,
