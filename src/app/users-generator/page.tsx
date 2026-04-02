@@ -29,6 +29,7 @@ export default function UsersGeneratorPage() {
     const jsonString = JSON.stringify(data?.data ?? [], null, 2);
     return jsonString;
   }, [data]);
+
   const sqlText = useMemo<string>(() => {
     const sqlString = buildQuery(data?.data ?? []);
     return sqlString;
@@ -36,14 +37,12 @@ export default function UsersGeneratorPage() {
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const highlightedJson = useMemo(() => {
-    const jsonString = JSON.stringify(data?.data ?? [], null, 2);
-    return Prism.highlight(jsonString, Prism.languages.json, "json");
-  }, [data]);
+    return Prism.highlight(jsonText, Prism.languages.json, "json");
+  }, [jsonText]);
 
   const highlightedSql = useMemo(() => {
-    const sqlString = buildQuery(data?.data ?? []);
-    return Prism.highlight(sqlString, Prism.languages.sql, "sql");
-  }, [data]);
+    return Prism.highlight(sqlText, Prism.languages.sql, "sql");
+  }, [sqlText]);
 
   const handleGenerate = () => {
     refetch({
