@@ -44,15 +44,15 @@ export default function UsersGeneratorPage() {
 
   const columnsValues = useMemo<string[]>(() => {
     return columns.map((column) => column.colName ? columnsTable[column.colValue] : "");
-  }, [columns, columnsTable]);
+  }, [columns]);
 
 
   const jsonText = useMemo<string>(() => {
     if (!data?.data) {
       return "";
     }
-    let dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
-      let obj: Record<string, string> = {};
+    const dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
+      const obj: Record<string, string> = {};
       columns.forEach((column: Column) => {
         obj[column.colName] = el[columnsTable[column.colValue]];
       });
@@ -60,14 +60,14 @@ export default function UsersGeneratorPage() {
     });
     const jsonString = JSON.stringify(dataWithUserColumns, null, 2);
     return jsonString;
-  }, [data]);
+  }, [data, columns]);
 
   const sqlText = useMemo<string>(() => {
     if (!data?.data) {
       return "";
     }
-    let dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
-      let obj: Record<string, string> = {};
+    const dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
+      const obj: Record<string, string> = {};
       columns.forEach((column: Column) => {
         obj[column.colName] = el[columnsTable[column.colValue]];
       });
@@ -75,7 +75,7 @@ export default function UsersGeneratorPage() {
     });
     const sqlString = buildQuery(dataWithUserColumns);
     return sqlString;
-  }, [data]);
+  }, [data, columns]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
 

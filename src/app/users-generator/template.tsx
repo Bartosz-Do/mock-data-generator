@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, createContext, useState, Fragment, useEffect } from "react";
+import { ReactNode, createContext, useState, Fragment } from "react";
 import Sidebar from "@/components/sidebar";
 import { Toggle, Input, Button, Select } from "@/components/ui";
 import { cn } from "@/utilities";
