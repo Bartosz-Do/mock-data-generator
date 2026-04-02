@@ -22,4 +22,5 @@ export interface GeneratorSettings {
   password: boolean;
   count: number;
   seed: number | undefined;
+  isSeedEnabled: boolean;
 }

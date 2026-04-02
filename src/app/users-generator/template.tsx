@@ -14,6 +14,7 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
   password: false,
   count: 10,
   seed: undefined,
+  isSeedEnabled: false,
 });
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
@@ -24,11 +25,12 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [count, setCount] = useState<number>(10);
-  const [seed, setSeed] = useState<number | undefined>(undefined);
+  const [seed, setSeed] = useState<number>(1);
+  const [isSeedEnabled, setIsSeedEnabled] = useState<boolean>(false);
 
   return (
     <>
-      <UsersGeneratorContext.Provider value={{ name, surname, username, avatar, email, password, count, seed }}>
+      <UsersGeneratorContext.Provider value={{ name, surname, username, avatar, email, password, count, seed, isSeedEnabled }}>
         <Sidebar>
           <h2 className="mb-4">Settings</h2>
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
@@ -38,8 +40,11 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
             </div>
 
             <div>Seed</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={seed?.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(Number(e.target.value) ? Number(e.target.value) : undefined)} />
+            <div className={cn("justify-self-end")}>
+              <Toggle checked={isSeedEnabled} onChange={(e) => setIsSeedEnabled(e.target.checked)} />
+            </div>
+            <div className={cn("grid-col-span-2", "justify-self-end", "flex-align-center")}>
+              <Input type="number" value={seed.toString()} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(parseInt(e.target.value))} disabled={!isSeedEnabled} />
             </div>
 
             <div>Name</div>
@@ -76,7 +81,7 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
         <div className="main-with-sidebar">
           {children}
         </div>
-      </UsersGeneratorContext.Provider>
+      </UsersGeneratorContext.Provider >
     </>
   );
 }

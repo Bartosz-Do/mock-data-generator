@@ -21,6 +21,7 @@ export default function UsersGeneratorPage() {
     password: isPassword,
     count,
     seed,
+    isSeedEnabled,
   } = useContext(UsersGeneratorContext);
 
   const { isLoading, refetch, data, error } = useFetch();
@@ -53,7 +54,7 @@ export default function UsersGeneratorPage() {
         isAvatar ? "avatar" : "",
         isEmail ? "email" : "",
         isPassword ? "password" : "",
-      ], seed
+      ], seed: isSeedEnabled ? seed : undefined
     })
   };
   const copyJson = async () => {
