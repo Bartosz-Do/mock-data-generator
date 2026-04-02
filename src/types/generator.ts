@@ -21,6 +21,6 @@ export interface GeneratorSettings {
   email: boolean;
   password: boolean;
   count: number;
-  seed: number | undefined;
+  seed: number;
   isSeedEnabled: boolean;
 }

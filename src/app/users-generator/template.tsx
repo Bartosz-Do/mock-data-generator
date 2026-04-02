@@ -13,7 +13,7 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
   email: false,
   password: false,
   count: 10,
-  seed: undefined,
+  seed: 1,
   isSeedEnabled: false,
 });
 
@@ -24,19 +24,47 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const [avatar, setAvatar] = useState(false);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
-  const [count, setCount] = useState<number>(10);
-  const [seed, setSeed] = useState<number>(1);
+  const [count, setCount] = useState<string>("10");
+  const [seed, setSeed] = useState<string>("1");
   const [isSeedEnabled, setIsSeedEnabled] = useState<boolean>(false);
+
+  const handleCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (/^\d+$/.test(e.target.value) || e.target.value === "") {
+      setCount(e.target.value);
+    }
+  };
+
+  const handleCountBlur = () => {
+    const value = count.trim();
+    if (value === "" || !/^\d+$/.test(value)) {
+      return setCount("1");
+    }
+    setCount(String(Number(value)));
+  };
+
+  const handleSeedChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (/^\d+$/.test(e.target.value) || e.target.value === "") {
+      setSeed(e.target.value);
+    }
+  };
+
+  const handleSeedBlur = () => {
+    const value = seed.trim();
+    if (value === "" || !/^\d+$/.test(value)) {
+      return setSeed("1");
+    }
+    setSeed(String(Number(value)));
+  };
 
   return (
     <>
-      <UsersGeneratorContext.Provider value={{ name, surname, username, avatar, email, password, count, seed, isSeedEnabled }}>
+      <UsersGeneratorContext.Provider value={{ name, surname, username, avatar, email, password, count: Number(count), seed: Number(seed), isSeedEnabled }}>
         <Sidebar>
           <h2 className="mb-4">Settings</h2>
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
             <div>Count</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={count.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCount(Number(e.target.value) ? Number(e.target.value) : 0)} />
+              <Input value={count} onBlur={handleCountBlur} onChange={handleCountChange} />
             </div>
 
             <div>Seed</div>
@@ -44,7 +72,7 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
               <Toggle checked={isSeedEnabled} onChange={(e) => setIsSeedEnabled(e.target.checked)} />
             </div>
             <div className={cn("grid-col-span-2", "justify-self-end", "flex-align-center")}>
-              <Input type="number" value={seed.toString()} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(parseInt(e.target.value))} disabled={!isSeedEnabled} />
+              <Input value={seed} onChange={handleSeedChange} onBlur={handleSeedBlur} disabled={!isSeedEnabled} />
             </div>
 
             <div>Name</div>
