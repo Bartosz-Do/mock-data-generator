@@ -1,5 +1,5 @@
 "use client";
-import { UsersGeneratorContext } from "./template";
+import { UsersGeneratorContext, columnsTable } from "./template";
 import { useContext, useMemo, useState } from "react";
 import SwitchSection from "@/components/switch-section";
 import { useFetch } from "@/hooks/useFetch";
@@ -10,32 +10,74 @@ import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
 import Icon from "@/components/ui/icon";
 import { cn } from "@/utilities";
+import { Column } from "@/types/generator";
 
 export default function UsersGeneratorPage() {
   const {
-    name: isName,
-    surname: isSurname,
-    username: isUsername,
-    avatar: isAvatar,
-    email: isEmail,
-    password: isPassword,
+    columns,
     count,
     seed,
     isSeedEnabled,
   } = useContext(UsersGeneratorContext);
 
+  /*
+  [
+    {
+      "colName": "value",
+      "colValue": 0
+    }
+  ]
+
+  [
+    {
+      "name": "value",
+      "surname": "value",
+      "username": "value",
+      "avatar": "value",
+      "email": "value",
+      "password": "value"
+    }
+  ]
+  */
+
   const { isLoading, refetch, data, error } = useFetch();
 
+  const columnsValues = useMemo<string[]>(() => {
+    return columns.map((column) => column.colName ? columnsTable[column.colValue] : "");
+  }, [columns, columnsTable]);
+
+
   const jsonText = useMemo<string>(() => {
-    const jsonString = JSON.stringify(data?.data ?? [], null, 2);
+    if (!data?.data) {
+      return "";
+    }
+    let dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
+      let obj: Record<string, string> = {};
+      columns.forEach((column: Column) => {
+        obj[column.colName] = el[columnsTable[column.colValue]];
+      });
+      return obj;
+    });
+    const jsonString = JSON.stringify(dataWithUserColumns, null, 2);
     return jsonString;
   }, [data]);
 
   const sqlText = useMemo<string>(() => {
-    const sqlString = buildQuery(data?.data ?? []);
+    if (!data?.data) {
+      return "";
+    }
+    let dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
+      let obj: Record<string, string> = {};
+      columns.forEach((column: Column) => {
+        obj[column.colName] = el[columnsTable[column.colValue]];
+      });
+      return obj;
+    });
+    const sqlString = buildQuery(dataWithUserColumns);
     return sqlString;
   }, [data]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
+
 
   const highlightedJson = useMemo(() => {
     return Prism.highlight(jsonText, Prism.languages.json, "json");
@@ -47,14 +89,7 @@ export default function UsersGeneratorPage() {
 
   const handleGenerate = () => {
     refetch({
-      count, fields: [
-        isName ? "name" : "",
-        isSurname ? "surname" : "",
-        isUsername ? "username" : "",
-        isAvatar ? "avatar" : "",
-        isEmail ? "email" : "",
-        isPassword ? "password" : "",
-      ], seed: isSeedEnabled ? seed : undefined
+      count, fields: columnsValues, seed: isSeedEnabled ? seed : undefined
     })
   };
   const copyJson = async () => {

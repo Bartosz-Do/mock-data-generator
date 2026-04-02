@@ -12,14 +12,13 @@ export interface GeneratorArgs {
   fields: number | string[];
   seed?: number;
 }
+export type Column = {
+  colName: string;
+  colValue: number;
+};
 
 export interface GeneratorSettings {
-  name: boolean;
-  surname: boolean;
-  username: boolean;
-  avatar: boolean;
-  email: boolean;
-  password: boolean;
+  columns: Column[];
   count: number;
   seed: number;
   isSeedEnabled: boolean;
