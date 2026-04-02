@@ -61,7 +61,7 @@ export default function UsersGeneratorPage() {
   }, [data]);
 
   const handleGenerate = () => {
-    if (fields) refetch({ count, fields, seed });
+    refetch({ count, fields, seed });
   };
 
   const copyJson = async () => {
