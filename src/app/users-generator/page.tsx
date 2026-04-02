@@ -20,26 +20,6 @@ export default function UsersGeneratorPage() {
     isSeedEnabled,
   } = useContext(UsersGeneratorContext);
 
-  /*
-  [
-    {
-      "colName": "value",
-      "colValue": 0
-    }
-  ]
-
-  [
-    {
-      "name": "value",
-      "surname": "value",
-      "username": "value",
-      "avatar": "value",
-      "email": "value",
-      "password": "value"
-    }
-  ]
-  */
-
   const { isLoading, refetch, data, error } = useFetch();
 
   const columnsValues = useMemo<string[]>(() => {

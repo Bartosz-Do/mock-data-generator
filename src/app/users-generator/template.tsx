@@ -17,12 +17,6 @@ export const columnsTable = [
 ];
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
-  //const [name, setName] = useState(false);
-  //const [surname, setSurname] = useState(false);
-  //const [username, setUsername] = useState(false);
-  //const [avatar, setAvatar] = useState(false);
-  //const [email, setEmail] = useState(false);
-  //const [password, setPassword] = useState(false);
   const [count, setCount] = useState<string>("10");
   const [seed, setSeed] = useState<string>("1");
   const [isSeedEnabled, setIsSeedEnabled] = useState<boolean>(false);
@@ -89,36 +83,6 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
             <div className={cn("grid-col-span-2")}><h3>Columns</h3></div>
             <div className={cn("justify-self-start")}>Column value</div>
             <div className={cn("justify-self-start")}>Column name</div>
-
-            {/*<div>Name</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={name} onChange={(e) => setName(e.target.checked)} />
-            </div>
-
-            <div>Surname</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={surname} onChange={(e) => setSurname(e.target.checked)} />
-            </div>
-
-            <div>Username</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={username} onChange={(e) => setUsername(e.target.checked)} />
-            </div>
-
-            <div>Avatar</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={avatar} onChange={(e) => setAvatar(e.target.checked)} />
-            </div>
-
-            <div>Email</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={email} onChange={(e) => setEmail(e.target.checked)} />
-            </div>
-
-            <div>Password</div>
-            <div className={cn("justify-self-end", "flex-align-center")}>
-              <Toggle checked={password} onChange={(e) => setPassword(e.target.checked)} />
-            </div>*/}
 
             {columns.map((el, i) => {
               return (
