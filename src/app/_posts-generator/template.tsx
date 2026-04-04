@@ -22,12 +22,12 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
           <div className={cn("grid-2-columns", "width-100", "gap-2")}>
             <div>Count</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={count.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCount(Number(e.target.value) ? Number(e.target.value) : 0)} />
+              <Input value={count.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCount(Number(e.target.value) ? Number(e.target.value) : 0)} />
             </div>
 
             <div>Seed</div>
             <div className={cn("justify-self-end", "flex-align-center")}>
-              <Input type="number" value={seed?.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(Number(e.target.value) ? Number(e.target.value) : undefined)} />
+              <Input value={seed?.toString() || ""} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSeed(Number(e.target.value) ? Number(e.target.value) : undefined)} />
             </div>
           </div>
         </Sidebar>
