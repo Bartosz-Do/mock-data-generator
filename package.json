@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "lru-cache": "^11.2.7",
     "next": "16.1.6",
+    "rate-limiter-flexible": "^10.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sass": "^1.98.0"
