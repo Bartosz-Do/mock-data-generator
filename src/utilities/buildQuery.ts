@@ -1,11 +1,16 @@
-export default function buildQuery(data: Record<string, string>[]): string {
-  if (data.length === 0) {
-    return "";
-  }
+import { Ok } from "@/types/generator";
 
-  const columns = Object.keys(data[0]).join(", ");
-  const values = data
-    .map((row) => `(${Object.values(row).map((value) => `"${value}"`).join(", ")})`)
+export default function buildUserQuery(data: Ok): string {
+  const tableName = data.value[0].hasOwnProperty("authorId") ? "posts" : "users";
+
+  const columns = Object.keys(data.value[0]).join(", ");
+  const values = data.value
+    .map(
+      (row) =>
+        `(${Object.values(row)
+          .map((value) => `"${value}"`)
+          .join(", ")})`,
+    )
     .join(",\n");
-  return `INSERT INTO users (${columns}) VALUES\n${values};`;
+  return `INSERT INTO ${tableName} (${columns}) VALUES\n${values};`;
 }

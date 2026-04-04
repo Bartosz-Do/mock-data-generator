@@ -2,7 +2,7 @@
 import { UsersGeneratorContext, columnsTable } from "./template";
 import { useContext, useMemo, useState } from "react";
 import SwitchSection from "@/components/switch-section";
-import { useFetch } from "@/hooks/useFetch";
+import { useFetchUsers } from "@/hooks/useFetchUsers";
 import { Button } from "@/components/ui";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json";
@@ -20,42 +20,52 @@ export default function UsersGeneratorPage() {
     isSeedEnabled,
   } = useContext(UsersGeneratorContext);
 
-  const { isLoading, refetch, data, error } = useFetch();
+  const { isLoading, refetch, data } = useFetchUsers();
 
-  const columnsValues = useMemo<string[]>(() => {
-    return columns.map((column) => column.colName ? columnsTable[column.colValue] : "");
+  const fields = useMemo(() => {
+    return columns.reduce((acc, column) => {
+      if (!column.colName.trim()) {
+        return acc;
+      }
+      return acc | (1 << column.colValue);
+    }, 0);
   }, [columns]);
 
+  const dataWithUserColumns = useMemo<Record<string, string>[]>(() => {
+    if (!data?.ok) {
+      return [];
+    }
+
+    return data.value.map((row) => {
+      const obj: Record<string, string> = {};
+      columns.forEach((column: Column) => {
+        const sourceKey = columnsTable[column.colValue];
+        const targetKey = column.colName.trim();
+        if (!targetKey) {
+          return;
+        }
+        obj[targetKey] = row[sourceKey] ?? "";
+      });
+      return obj;
+    });
+  }, [data, columns]);
 
   const jsonText = useMemo<string>(() => {
-    if (!data?.data) {
+    if (!data) {
       return "";
     }
-    const dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
-      const obj: Record<string, string> = {};
-      columns.forEach((column: Column) => {
-        obj[column.colName] = el[columnsTable[column.colValue]];
-      });
-      return obj;
-    });
-    const jsonString = JSON.stringify(dataWithUserColumns, null, 2);
-    return jsonString;
-  }, [data, columns]);
+    if (!data.ok) {
+      return data.error;
+    }
+    return JSON.stringify(dataWithUserColumns, null, 2);
+  }, [data, dataWithUserColumns]);
 
   const sqlText = useMemo<string>(() => {
-    if (!data?.data) {
+    if (!data?.ok || dataWithUserColumns.length === 0) {
       return "";
     }
-    const dataWithUserColumns: Record<string, string>[] = data.data.map((el) => {
-      const obj: Record<string, string> = {};
-      columns.forEach((column: Column) => {
-        obj[column.colName] = el[columnsTable[column.colValue]];
-      });
-      return obj;
-    });
-    const sqlString = buildQuery(dataWithUserColumns);
-    return sqlString;
-  }, [data, columns]);
+    return buildQuery({ ok: true, value: dataWithUserColumns });
+  }, [data, dataWithUserColumns]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
 
@@ -69,9 +79,12 @@ export default function UsersGeneratorPage() {
 
   const handleGenerate = () => {
     refetch({
-      count, fields: columnsValues, seed: isSeedEnabled ? seed : undefined
-    })
+      count,
+      fields,
+      seed: isSeedEnabled ? seed : undefined,
+    });
   };
+
   const copyJson = async () => {
     try {
       await navigator.clipboard.writeText(jsonText);
@@ -79,7 +92,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch { }
+    } catch {}
   };
 
   const copySql = async () => {
@@ -89,7 +102,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch { }
+    } catch {}
   };
 
   return (
@@ -97,7 +110,9 @@ export default function UsersGeneratorPage() {
       <h1>Random users generator</h1>
       <p>You can choose what gets generated in the settings.</p>
 
-      <Button variant="primary" onClick={handleGenerate} disabled={isLoading} className="mt-4">Generate</Button>
+      <Button variant="primary" onClick={handleGenerate} disabled={isLoading} className="mt-4">
+        Generate
+      </Button>
 
       <SwitchSection className="mt-2">
         <div id="json">
@@ -108,10 +123,7 @@ export default function UsersGeneratorPage() {
               <div className={cn("feedback", { "display-none": !isCopied })}>Copied to clipboard</div>
             </Button>
             <pre>
-              <code
-                className="language-json"
-                dangerouslySetInnerHTML={{ __html: highlightedJson }}
-              />
+              <code className="language-json" dangerouslySetInnerHTML={{ __html: highlightedJson }} />
             </pre>
           </div>
         </div>
@@ -124,14 +136,11 @@ export default function UsersGeneratorPage() {
               <div className={cn("feedback", { "display-none": !isCopied })}>Copied to clipboard</div>
             </Button>
             <pre>
-              <code
-                className="language-sql"
-                dangerouslySetInnerHTML={{ __html: highlightedSql }}
-              />
+              <code className="language-sql" dangerouslySetInnerHTML={{ __html: highlightedSql }} />
             </pre>
           </div>
-        </div >
-      </SwitchSection >
+        </div>
+      </SwitchSection>
     </>
   );
 }

@@ -1,13 +1,4 @@
-export interface GeneratorResponse {
-  meta: {
-    count: number;
-    generatedAt: string;
-    message: string;
-  };
-  data: Record<string, string>[];
-}
-
-export interface GeneratorArgs {
+export interface UserArgs {
   count: number;
   fields: number | string[];
   seed?: number;
@@ -23,3 +14,20 @@ export interface GeneratorSettings {
   seed: number;
   isSeedEnabled: boolean;
 }
+
+export interface PostArgs {
+  count: number;
+  seed?: number;
+}
+
+export interface Ok {
+  ok: true;
+  value: Record<string, string>[];
+}
+
+export interface Err {
+  ok: false;
+  error: string;
+}
+
+export type GeneratorResponse = Ok | Err;
