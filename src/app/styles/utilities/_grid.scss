@@ -3,7 +3,7 @@
 @layer utilities {
   .grid-2-columns {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .grid-col-span-2 {

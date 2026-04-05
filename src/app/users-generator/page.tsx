@@ -1,5 +1,5 @@
 "use client";
-import { UsersGeneratorContext } from "./template";
+import { UsersGeneratorContext, columnsTable } from "./template";
 import { useContext, useMemo, useState } from "react";
 import SwitchSection from "@/components/switch-section";
 import { useFetchUsers } from "@/hooks/useFetchUsers";
@@ -10,58 +10,79 @@ import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
 import Icon from "@/components/ui/icon";
 import { cn } from "@/utilities";
+import { Column } from "@/types/generator";
 
 export default function UsersGeneratorPage() {
   const {
-    name: isName,
-    surname: isSurname,
-    username: isUsername,
-    avatar: isAvatar,
-    email: isEmail,
-    password: isPassword,
+    columns,
     count,
     seed,
+    isSeedEnabled,
   } = useContext(UsersGeneratorContext);
 
   const { isLoading, refetch, data } = useFetchUsers();
 
   const fields = useMemo(() => {
-    let fields = 0;
-    if (isName) fields |= 1;
-    if (isSurname) fields |= 2;
-    if (isUsername) fields |= 4;
-    if (isAvatar) fields |= 8;
-    if (isEmail) fields |= 16;
-    if (isPassword) fields |= 32;
-    return fields;
-  }, [isName, isSurname, isUsername, isAvatar, isEmail, isPassword]);
+    return columns.reduce((acc, column) => {
+      if (!column.colName.trim()) {
+        return acc;
+      }
+      return acc | (1 << column.colValue);
+    }, 0);
+  }, [columns]);
+
+  const dataWithUserColumns = useMemo<Record<string, string>[]>(() => {
+    if (!data?.ok) {
+      return [];
+    }
+
+    return data.value.map((row) => {
+      const obj: Record<string, string> = {};
+      columns.forEach((column: Column) => {
+        const sourceKey = columnsTable[column.colValue];
+        const targetKey = column.colName.trim();
+        if (!targetKey) {
+          return;
+        }
+        obj[targetKey] = row[sourceKey] ?? "";
+      });
+      return obj;
+    });
+  }, [data, columns]);
 
   const jsonText = useMemo<string>(() => {
-    const jsonString = JSON.stringify(data?.ok ? data.value : [], null, 2);
-    return jsonString;
-  }, [data]);
+    if (!data) {
+      return "";
+    }
+    if (!data.ok) {
+      return data.error;
+    }
+    return JSON.stringify(dataWithUserColumns, null, 2);
+  }, [data, dataWithUserColumns]);
+
   const sqlText = useMemo<string>(() => {
-    const sqlString = data?.ok ? buildQuery(data) : "";
-    return sqlString;
-  }, [data]);
+    if (!data?.ok || dataWithUserColumns.length === 0) {
+      return "";
+    }
+    return buildQuery({ ok: true, value: dataWithUserColumns });
+  }, [data, dataWithUserColumns]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
+
   const highlightedJson = useMemo(() => {
-    if (!data) return "[]";
-    if (!data.ok) return Prism.highlight(data.error, Prism.languages.json, "json");
-    const jsonString = JSON.stringify(data.value, null, 2);
-    return Prism.highlight(jsonString, Prism.languages.json, "json");
-  }, [data]);
+    return Prism.highlight(jsonText, Prism.languages.json, "json");
+  }, [jsonText]);
 
   const highlightedSql = useMemo(() => {
-    if (!data) return "";
-    if (!data.ok) return Prism.highlight(data.error, Prism.languages.json, "json");
-    const sqlString = buildQuery(data);
-    return Prism.highlight(sqlString, Prism.languages.sql, "sql");
-  }, [data]);
+    return Prism.highlight(sqlText, Prism.languages.sql, "sql");
+  }, [sqlText]);
 
   const handleGenerate = () => {
-    refetch({ count, fields, seed });
+    refetch({
+      count,
+      fields,
+      seed: isSeedEnabled ? seed : undefined,
+    });
   };
 
   const copyJson = async () => {

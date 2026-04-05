@@ -3,21 +3,21 @@ export interface UserArgs {
   fields: number | string[];
   seed?: number;
 }
+export type Column = {
+  colName: string;
+  colValue: number;
+};
+
+export interface GeneratorSettings {
+  columns: Column[];
+  count: number;
+  seed: number;
+  isSeedEnabled: boolean;
+}
 
 export interface PostArgs {
   count: number;
   seed?: number;
-}
-
-export interface UserSettings {
-  name: boolean;
-  surname: boolean;
-  username: boolean;
-  avatar: boolean;
-  email: boolean;
-  password: boolean;
-  count: number;
-  seed: number | undefined;
 }
 
 export interface Ok {
