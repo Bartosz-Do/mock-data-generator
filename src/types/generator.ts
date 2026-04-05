@@ -1,11 +1,11 @@
 export interface UserArgs {
   count: number;
-  fields: number | string[];
+  fields: string[];
   seed?: number;
 }
 export type Column = {
   colName: string;
-  colValue: number;
+  colValue: string;
 };
 
 export interface GeneratorSettings {

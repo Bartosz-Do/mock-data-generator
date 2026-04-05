@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import generateData from "@/utilities/dataGenerator";
+import { generateData } from "@/utilities/generator/dataGenerator";
 import { UserArgs } from "@/types/generator";
 import { checkRateLimit } from "@/utilities/ratelimit/rateLimiter";
 
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { count, fields, seed }: UserArgs = body;
 
-    const response = await generateData({ count, fields, seed });
+    const response = generateData({ count, fields, seed });
 
     if (!response.ok) {
       return NextResponse.json(response, { status: 400, headers: rateLimit.headers });

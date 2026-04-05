@@ -13,7 +13,16 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
 });
 
 export const columnsTable = [
-  "name", "surname", "username", "avatar", "email", "password"
+  "name",
+  "surname",
+  "username",
+  "avatar",
+  "email",
+  "password",
+  "title",
+  "body",
+  "date",
+  "phrase",
 ];
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
@@ -51,15 +60,15 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   };
 
   const handleColumnNameChange = (e: React.ChangeEvent<HTMLInputElement>, i: number) => {
-    setColumns(prev => prev.map((el, index) => index === i ? { ...el, colName: e.target.value } : el));
+    setColumns((prev) => prev.map((el, index) => (index === i ? { ...el, colName: e.target.value } : el)));
   };
 
   const handleAddColumn = () => {
-    setColumns([...columns, { colName: "", colValue: 0 }]);
+    setColumns([...columns, { colName: "", colValue: columnsTable[0] }]);
   };
 
   const changeColumnValue = (e: React.ChangeEvent<HTMLSelectElement>, i: number) => {
-    setColumns(prev => prev.map((el, index) => index === i ? { ...el, colValue: Number(e.target.value) } : el));
+    setColumns((prev) => prev.map((el, index) => (index === i ? { ...el, colValue: e.target.value } : el)));
   };
   return (
     <>
@@ -80,7 +89,9 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
               <Input value={seed} onChange={handleSeedChange} onBlur={handleSeedBlur} disabled={!isSeedEnabled} />
             </div>
 
-            <div className={cn("grid-col-span-2")}><h3>Columns</h3></div>
+            <div className={cn("grid-col-span-2")}>
+              <h3>Columns</h3>
+            </div>
             <div className={cn("justify-self-start")}>Column value</div>
             <div className={cn("justify-self-start")}>Column name</div>
 
@@ -88,11 +99,17 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
               return (
                 <Fragment key={i}>
                   <div>
-                    <Select value={el.colValue.toString()} onChange={(e) => changeColumnValue(e, i)} disabled={!el.colName}>
+                    <Select
+                      value={el.colValue}
+                      onChange={(e) => changeColumnValue(e, i)}
+                      disabled={!el.colName}
+                    >
                       {columnsTable.map((element, i) => {
                         return (
-                          <option key={i} value={i}>{element}</option>
-                        )
+                          <option key={i} value={element}>
+                            {element}
+                          </option>
+                        );
                       })}
                     </Select>
                   </div>
