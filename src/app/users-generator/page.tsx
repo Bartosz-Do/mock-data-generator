@@ -32,7 +32,6 @@ export default function UsersGeneratorPage() {
   }, [columns]);
 
   useEffect(() => {
-    console.log("change");
     refetch({
       count, fields, seed: isSeedEnabled ? seed : undefined,
     });
@@ -108,6 +107,7 @@ export default function UsersGeneratorPage() {
     <>
       <h1>Random users generator</h1>
       <p>You can choose what gets generated in the settings.</p>
+      <h3 className={cn("mt-4")}>{isLoading ? "Loading..." : "Up to date!"}</h3>
 
       <SwitchSection className="mt-2">
         <div id="json">
