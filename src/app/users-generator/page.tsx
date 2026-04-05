@@ -1,8 +1,7 @@
 "use client";
-import { UsersGeneratorContext, columnsTable } from "./template";
+import { UsersGeneratorContext } from "./template";
 import { useContext, useMemo, useState, useEffect } from "react";
 import SwitchSection from "@/components/switch-section";
-import { useFetchUsers } from "@/hooks/useFetchUsers";
 import { Button } from "@/components/ui";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json";
@@ -11,31 +10,25 @@ import buildQuery from "@/utilities/buildQuery";
 import Icon from "@/components/ui/icon";
 import { cn } from "@/utilities";
 import { Column } from "@/types/generator";
+import { useGenerateData } from "@/hooks/useGenerateData";
 
 export default function UsersGeneratorPage() {
-  const {
-    columns,
-    count,
-    seed,
-    isSeedEnabled,
-  } = useContext(UsersGeneratorContext);
+  const { columns, count, seed, isSeedEnabled } = useContext(UsersGeneratorContext);
 
-  const { isLoading, refetch, data } = useFetchUsers();
+  const { isLoading, refetch, data } = useGenerateData();
 
   const fields = useMemo(() => {
-    return columns.reduce((acc, column) => {
-      if (!column.colName.trim()) {
-        return acc;
-      }
-      return acc | (1 << column.colValue);
-    }, 0);
+    const validColumns = columns.filter((col) => col.colName.trim() !== "");
+    return validColumns.map((col) => col.colValue);
   }, [columns]);
 
   useEffect(() => {
     refetch({
-      count, fields, seed: isSeedEnabled ? seed : undefined,
+      count,
+      fields,
+      seed: isSeedEnabled ? seed : undefined,
     });
-  }, [fields, count, seed, isSeedEnabled]);
+  }, [fields, count, seed, isSeedEnabled, refetch]);
 
   const dataWithUserColumns = useMemo<Record<string, string>[]>(() => {
     if (!data?.ok) {
@@ -45,7 +38,7 @@ export default function UsersGeneratorPage() {
     return data.value.map((row) => {
       const obj: Record<string, string> = {};
       columns.forEach((column: Column) => {
-        const sourceKey = columnsTable[column.colValue];
+        const sourceKey = column.colValue;
         const targetKey = column.colName.trim();
         if (!targetKey) {
           return;
@@ -74,7 +67,6 @@ export default function UsersGeneratorPage() {
   }, [data, dataWithUserColumns]);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
-
   const highlightedJson = useMemo(() => {
     return Prism.highlight(jsonText, Prism.languages.json, "json");
   }, [jsonText]);
@@ -90,7 +82,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch { }
+    } catch {}
   };
 
   const copySql = async () => {
@@ -100,7 +92,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch { }
+    } catch {}
   };
 
   return (
