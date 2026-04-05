@@ -1,6 +1,6 @@
 "use client";
 import { UsersGeneratorContext, columnsTable } from "./template";
-import { useContext, useMemo, useState } from "react";
+import { useContext, useMemo, useState, useEffect } from "react";
 import SwitchSection from "@/components/switch-section";
 import { useFetchUsers } from "@/hooks/useFetchUsers";
 import { Button } from "@/components/ui";
@@ -30,6 +30,13 @@ export default function UsersGeneratorPage() {
       return acc | (1 << column.colValue);
     }, 0);
   }, [columns]);
+
+  useEffect(() => {
+    console.log("change");
+    refetch({
+      count, fields, seed: isSeedEnabled ? seed : undefined,
+    });
+  }, [fields, count, seed, isSeedEnabled]);
 
   const dataWithUserColumns = useMemo<Record<string, string>[]>(() => {
     if (!data?.ok) {
@@ -77,14 +84,6 @@ export default function UsersGeneratorPage() {
     return Prism.highlight(sqlText, Prism.languages.sql, "sql");
   }, [sqlText]);
 
-  const handleGenerate = () => {
-    refetch({
-      count,
-      fields,
-      seed: isSeedEnabled ? seed : undefined,
-    });
-  };
-
   const copyJson = async () => {
     try {
       await navigator.clipboard.writeText(jsonText);
@@ -92,7 +91,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch {}
+    } catch { }
   };
 
   const copySql = async () => {
@@ -102,17 +101,13 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch {}
+    } catch { }
   };
 
   return (
     <>
       <h1>Random users generator</h1>
       <p>You can choose what gets generated in the settings.</p>
-
-      <Button variant="primary" onClick={handleGenerate} disabled={isLoading} className="mt-4">
-        Generate
-      </Button>
 
       <SwitchSection className="mt-2">
         <div id="json">
