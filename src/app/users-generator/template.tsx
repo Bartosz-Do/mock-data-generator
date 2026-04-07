@@ -12,7 +12,7 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
   isSeedEnabled: false,
 });
 
-export const columnsTable = {
+const columnsTable = {
   "name": "firstName",
   "surname": "lastName",
   "full name": "fullName",
