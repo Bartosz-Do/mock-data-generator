@@ -31,7 +31,7 @@ export function generateData({ count, fields, seed }: UserArgs): GeneratorRespon
       if (!data[i]) {
         data[i] = {};
       }
-      data[i][field] = (faker as any)[category][field]();
+      data[i][field] = (faker as unknown as Record<string, Record<string, () => string>>)[category][field]();
     }
   });
 
