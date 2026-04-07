@@ -82,7 +82,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch {}
+    } catch { }
   };
 
   const copySql = async () => {
@@ -92,7 +92,7 @@ export default function UsersGeneratorPage() {
       setTimeout(() => {
         setIsCopied(false);
       }, 2000);
-    } catch {}
+    } catch { }
   };
 
   return (

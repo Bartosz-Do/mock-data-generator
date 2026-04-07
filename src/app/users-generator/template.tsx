@@ -12,18 +12,17 @@ export const UsersGeneratorContext = createContext<GeneratorSettings>({
   isSeedEnabled: false,
 });
 
-export const columnsTable = [
-  "name",
-  "surname",
-  "username",
-  "avatar",
-  "email",
-  "password",
-  "title",
-  "body",
-  "date",
-  "phrase",
-];
+export const columnsTable = {
+  "name": "firstName",
+  "surname": "lastName",
+  "full name": "fullName",
+  "username": "username",
+  "avatar": "avatar",
+  "email": "email",
+  "password": "password",
+  "date": "anytime",
+  "phrase": "phrase",
+};
 
 export default function UsersGeneratorTemplate({ children }: { children: ReactNode }) {
   const [count, setCount] = useState<string>("10");
@@ -64,7 +63,7 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   };
 
   const handleAddColumn = () => {
-    setColumns([...columns, { colName: "", colValue: columnsTable[0] }]);
+    setColumns([...columns, { colName: "", colValue: Object.values(columnsTable)[0] }]);
   };
 
   const changeColumnValue = (e: React.ChangeEvent<HTMLSelectElement>, i: number) => {
@@ -104,10 +103,10 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
                       onChange={(e) => changeColumnValue(e, i)}
                       disabled={!el.colName}
                     >
-                      {columnsTable.map((element, i) => {
+                      {Object.entries(columnsTable).map(([key, value], i) => {
                         return (
-                          <option key={i} value={element}>
-                            {element}
+                          <option key={i} value={value}>
+                            {key}
                           </option>
                         );
                       })}
