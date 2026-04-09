@@ -72,7 +72,7 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
 
   const handleDeleteColumn = () => {
     setColumns((prev) => {
-      let newColumns = [...prev];
+      const newColumns = [...prev];
       newColumns.pop();
       return newColumns;
     });
