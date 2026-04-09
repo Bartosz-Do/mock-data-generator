@@ -1,12 +1,14 @@
 @layer components {
   .button {
-    --btn-fg-color: var(--color-fg-primary);
-    --btn-bg-color: var(--color-bg-primary);
-    --btn-bg-color-hover: var(--color-bg-secondary);
+    --btn-fg-color: var(--theme-color-fg, var(--color-fg-primary));
+    --btn-bg-color: var(--theme-color-bg, var(--color-bg-primary));
+    --btn-border-color: var(--theme-color-bg, var(--color-fg-primary));
+    --btn-bg-color-hover: var(--theme-color-bg-hover, var(--color-bg-secondary));
+    --btn-box-shadow-focus: var(--theme-box-shadow-focus, var(--box-shadow-focus));
 
     background-color: var(--btn-bg-color);
     color: var(--btn-fg-color);
-    border: 1px solid var(--btn-fg-color);
+    border: 1px solid var(--btn-border-color);
     padding: 0 var(--space-s);
     height: var(--size-s);
     border-radius: var(--border-radius);
@@ -34,21 +36,25 @@
     &.primary {
       --btn-bg-color: var(--color-bg-inverse);
       --btn-fg-color: var(--color-fg-inverse);
+      --btn-border-color: var(--color-bg-inverse);
       --btn-bg-color-hover: var(--color-bg-secondary-inverse);
     }
 
     &.secondary {
       --btn-bg-color: var(--color-bg-secondary);
+      --btn-border-color: var(--color-fg-primary);
+      --btn-fg-color: var(--color-fg-primary);
     }
 
     &.disabled,
     &:disabled {
       --btn-fg-color: var(--color-fg-disabled);
       --btn-bg-color: var(--color-bg-disabled);
+      --btn-border-color: var(--color-fg-disabled);
     }
 
     &:focus {
-      box-shadow: var(--box-shadow-focus);
+      box-shadow: var(--btn-box-shadow-focus);
       outline: none;
     }
   }

@@ -128,10 +128,10 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
               );
             })}
             <div className={cn("mt-3")}>
-              <Button onClick={handleAddColumn}>Add column</Button>
+              <Button onClick={handleAddColumn} variant="primary">Add column</Button>
             </div>
             <div className={cn("mt-3")}>
-              <Button onClick={handleDeleteColumn}><Icon name="trash" className="size-xxs" />Delete column</Button>
+              <Button onClick={handleDeleteColumn} className="theme-red"><Icon name="trash" className="size-xxs" />Delete column</Button>
             </div>
           </div>
         </Sidebar>
