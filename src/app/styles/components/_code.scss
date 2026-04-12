@@ -1,5 +1,7 @@
 @layer components {
-  .code-group {
+
+  .code-group,
+  .code-block {
     border: 1px solid var(--color-bg-disabled);
   }
 }
