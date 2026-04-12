@@ -79,7 +79,7 @@ export default function UsersGeneratorPage() {
 
   return (
     <>
-      <h1>Random users generator</h1>
+      <h1>Random data generator</h1>
       <p>You can choose what gets generated in the settings.</p>
       <h3 className={cn("mt-4")}>{isLoading ? "Loading..." : "Up to date!"}</h3>
       <div className="prose-ui">
