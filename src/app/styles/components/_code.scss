@@ -1,29 +1,5 @@
 @layer components {
-  .code {
-    position: relative;
+  .code-group {
     border: 1px solid var(--color-bg-disabled);
-    background-color: var(--color-bg-secondary);
-    padding: var(--space-s);
-    border-radius: var(--border-radius);
-
-    .copy {
-      position: absolute;
-      top: var(--space-xs);
-      right: var(--space-xs);
-
-      .feedback {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translateY(-110%);
-        background-color: var(--color-bg-secondary);
-        color: var(--color-fg-secondary);
-        border: 1px solid var(--color-fg-secondary);
-        border-radius: var(--border-radius);
-        padding: var(--space-xxs);
-        white-space: nowrap;
-        transition: 0.2s;
-      }
-    }
   }
 }

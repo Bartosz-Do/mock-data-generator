@@ -83,19 +83,23 @@ export default function UsersGeneratorPage() {
       <p>You can choose what gets generated in the settings.</p>
       <h3 className={cn("mt-4")}>{isLoading ? "Loading..." : "Up to date!"}</h3>
       <div className="prose-ui">
-        <CodeGroup tabs={[{
-          title: "Code",
-          variants: {
-            json: {
-              code: jsonText,
-              highlightedCode: highlightedJson,
+        <div className="code">
+          <CodeGroup tabs={[{
+            title: "Code",
+            variants: {
+              json: {
+                code: jsonText,
+                highlightedCode: highlightedJson,
+                showLineNumbers: true,
+              },
+              sql: {
+                code: sqlText,
+                highlightedCode: highlightedSql,
+                showLineNumbers: true,
+              },
             },
-            sql: {
-              code: sqlText,
-              highlightedCode: highlightedSql,
-            },
-          },
-        }]} languages={[{ value: "json", label: "JSON" }, { value: "sql", label: "SQL" }]} />
+          }]} languages={[{ value: "json", label: "JSON" }, { value: "sql", label: "SQL" }]} />
+        </div>
       </div>
     </>
   );

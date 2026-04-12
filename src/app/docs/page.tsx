@@ -33,7 +33,7 @@ console.log(z);`;
   return (
     <>
       <h1>Docs</h1>
-      <div className="prose-ui width-40">
+      <div className="prose-ui">
         <CodeBlock language="js" title="Code block title" showLineNumbers code={code} highlightedCode={highlightedCodeWithLines}>
           test
         </CodeBlock>
