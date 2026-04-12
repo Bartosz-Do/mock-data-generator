@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@prose-ui/next": "^2.0.8",
+    "@prose-ui/style": "^2.0.8",
     "classnames": "^2.5.1",
     "lru-cache": "^11.2.7",
     "next": "16.1.6",
