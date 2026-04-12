@@ -1,13 +1,10 @@
 "use client";
 import { UsersGeneratorContext } from "./template";
-import { useContext, useMemo, useState, useEffect } from "react";
-import SwitchSection from "@/components/switch-section";
-import { Button } from "@/components/ui";
+import { useContext, useMemo, useEffect } from "react";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
-import Icon from "@/components/ui/icon";
 import { cn } from "@/utilities";
 import { Column } from "@/types/generator";
 import { useGenerateData } from "@/hooks/useGenerateData";
@@ -66,7 +63,6 @@ export default function UsersGeneratorPage() {
     }
     return buildQuery({ ok: true, value: dataWithUserColumns });
   }, [data, dataWithUserColumns]);
-  const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const highlightedJson = useMemo(() => {
     const test = Prism.highlight(jsonText, Prism.languages.json, "json");
@@ -81,26 +77,6 @@ export default function UsersGeneratorPage() {
       return acc + `<span class="line">${line}</span>`;
     }, '')}</code></pre>`;
   }, [sqlText]);
-
-  const copyJson = async () => {
-    try {
-      await navigator.clipboard.writeText(jsonText);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    } catch { }
-  };
-
-  const copySql = async () => {
-    try {
-      await navigator.clipboard.writeText(sqlText);
-      setIsCopied(true);
-      setTimeout(() => {
-        setIsCopied(false);
-      }, 2000);
-    } catch { }
-  };
 
   return (
     <>
