@@ -15,6 +15,16 @@ $props: (
   color-gray-1000: #000000,
 
   color-brand-primary: #007bff,
+  color-red: #d7265b,
+  color-green: #2fbf71,
+  color-blue: #3a86ff,
+  color-yellow: #ffd166,
+  color-purple: #7b61ff,
+  color-orange: #f4a261,
+  color-brown: #8d6e63,
+  color-pink: #ff77b4,
+  color-white: var(--color-gray-0),
+  color-black: var(--color-gray-1000),
 
   color-bg-primary: light-dark(var(--color-gray-50), var(--color-gray-950)),
   color-bg-inverse: light-dark(var(--color-gray-950), var(--color-gray-50)),
@@ -28,8 +38,7 @@ $props: (
   color-fg-secondary-inverse: light-dark(var(--color-gray-400), var(--color-gray-600)),
   color-fg-disabled: light-dark(var(--color-gray-500), var(--color-gray-400)),
   box-shadow-primary: light-dark(0 0 15px 1px rgba(0, 0, 0, 0.25), 0 0 15px 1px rgba(255, 255, 255, 0.25)),
-  box-shadow-focus: (
-    0 0 0px 2px var(--color-bg-primary),
+  box-shadow-focus: (0 0 0px 2px var(--color-bg-primary),
     0 0 0px 4px color-mix(in oklab, var(--color-brand-primary), var(--color-bg-primary)),
   ),
   size-xxxs: 8px,
@@ -114,4 +123,15 @@ $widths: (
   80: 80%,
   90: 90%,
   100: 100%,
+);
+
+$colors: (
+  red: var(--color-red),
+  green: var(--color-green),
+  blue: var(--color-blue),
+  yellow: var(--color-yellow),
+  purple: var(--color-purple),
+  orange: var(--color-orange),
+  brown: var(--color-brown),
+  pink: var(--color-pink),
 );

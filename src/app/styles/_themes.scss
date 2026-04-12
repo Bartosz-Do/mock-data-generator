@@ -1,3 +1,5 @@
+@use "config" as config;
+
 @layer themes {
   .light {
     color-scheme: light;
@@ -5,5 +7,15 @@
 
   .dark {
     color-scheme: dark;
+  }
+
+  @each $color, $value in config.$colors {
+    .theme-#{"" + $color} {
+      --theme-color-bg: #{$value};
+      --theme-color-fg: var(--color-white);
+      --theme-color-bg-hover: color-mix(in oklab, #{$value}, var(--color-bg-primary) 10%);
+      --theme-box-shadow-focus: 0 0 0px 2px var(--color-bg-primary),
+      0 0 0px 4px color-mix(in oklab, #{$value}, var(--color-bg-primary));
+    }
   }
 }

@@ -1,7 +1,7 @@
 "use client";
 import { ReactNode, createContext, useState, Fragment } from "react";
 import Sidebar from "@/components/sidebar";
-import { Toggle, Input, Button, Select } from "@/components/ui";
+import { Toggle, Input, Button, Select, Icon } from "@/components/ui";
 import { cn } from "@/utilities";
 import { GeneratorSettings, Column } from "@/types/generator";
 
@@ -69,6 +69,15 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
   const changeColumnValue = (e: React.ChangeEvent<HTMLSelectElement>, i: number) => {
     setColumns((prev) => prev.map((el, index) => (index === i ? { ...el, colValue: e.target.value } : el)));
   };
+
+  const handleDeleteColumn = () => {
+    setColumns((prev) => {
+      const newColumns = [...prev];
+      newColumns.pop();
+      return newColumns;
+    });
+  };
+
   return (
     <>
       <UsersGeneratorContext.Provider value={{ columns, count: Number(count), seed: Number(seed), isSeedEnabled }}>
@@ -118,8 +127,11 @@ export default function UsersGeneratorTemplate({ children }: { children: ReactNo
                 </Fragment>
               );
             })}
-            <div className={cn("grid-col-span-2", "mt-3")}>
-              <Button onClick={handleAddColumn}>Add column</Button>
+            <div className={cn("mt-3")}>
+              <Button onClick={handleAddColumn} variant="primary">Add column</Button>
+            </div>
+            <div className={cn("mt-3")}>
+              <Button onClick={handleDeleteColumn} className="theme-red"><Icon name="trash" className="size-xxs" />Delete column</Button>
             </div>
           </div>
         </Sidebar>
