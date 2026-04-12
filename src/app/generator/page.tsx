@@ -2,7 +2,6 @@
 import { UsersGeneratorContext } from "./template";
 import { useContext, useMemo, useEffect } from "react";
 import * as Prism from "prismjs";
-import "prismjs/components/prism-json";
 import "prismjs/components/prism-sql";
 import buildQuery from "@/utilities/buildQuery";
 import { cn } from "@/utilities";
@@ -65,7 +64,7 @@ export default function UsersGeneratorPage() {
   }, [data, dataWithUserColumns]);
 
   const highlightedJson = useMemo(() => {
-    const test = Prism.highlight(jsonText, Prism.languages.json, "json");
+    const test = Prism.highlight(jsonText, Prism.languages.javascript, "javascript");
     return `<pre><code>${test.split('\n').reduce((acc, line) => {
       return acc + `<span class="line">${line}</span>`;
     }, '')}</code></pre>`;
