@@ -43,7 +43,7 @@ export default function DocsPage() {
 
       <h3>In concole you should see:</h3>
       <CodeBlock title="Result" code={basicApiFetchCode.res} language="json" highlightedCode={highlightCode(basicApiFetchCode.res, "javascript")}>test</CodeBlock>
-      <Callout variant="info" title="Note">
+      <Callout variant="warning" title="Note">
         Values in your console can be a bit different because seed is not set and data is generated randomly.
       </Callout>
     </div >
