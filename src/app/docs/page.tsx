@@ -1,68 +1,51 @@
-import { CodeBlock, CodeGroup } from "@prose-ui/next";
+import { cn } from "@/utilities";
+import { CodeGroup, Card, CodeBlock, Callout } from "@prose-ui/next";
+import { basicApiFetchCode } from "./codes";
 import * as Prism from "prismjs";
+import "prismjs/components/prism-python";
+
+const highlightCode = (code: string, language: string) => {
+  return `<pre><code>${Prism.highlight(code, Prism.languages[language], language).split("\n").reduce((acc, el) => {
+    return acc + `<span class="line">${el}</span>`;
+  }, "")}</code></pre>`;
+};
 
 export default function DocsPage() {
-  const code = `const x = 'Hello world';
-console.log(x);
-
-const y = 'Hello world';
-console.log(y);
-
-const z = 'Hello world';
-console.log(z);`;
-  const highlightedCode = Prism.highlight(code, Prism.languages.javascript, "javascript");
-  const highlightedCodeWithLines = `<code>${highlightedCode.split('\n').reduce((acc, line) => {
-    return acc + `<span class="line">${line}</span>`;
-  }, '')}</code>`;
-
-  const secondCode = `typescript
-const x = 'Hello world';
-console.log(x);
-
-const y = 'Hello world';
-console.log(y);
-
-const z = 'Hello world';
-console.log(z);`;
-
-  const secondHighlightedCode = Prism.highlight(secondCode, Prism.languages.javascript, "javascript");
-  const secondHighlightedCodeWithLines = `<code>${secondHighlightedCode.split('\n').reduce((acc, line) => {
-    return acc + `<span class="line">${line}</span>`;
-  }, '')}</code>`;
-
   return (
-    <>
-      <h1>Docs</h1>
-      <div className="prose-ui">
-        <CodeBlock language="js" title="Code block title" showLineNumbers code={code} highlightedCode={highlightedCodeWithLines}>
-          test
-        </CodeBlock>
+    <div className={cn("prose-ui", "center")}>
+      <h1>API docs</h1>
+      <Card title="API documentation" icon="scroll-text" color="var(--color-brand-primary)">
+        Our web application provides an API that allows you to generate sample
+        data using `faker`, an npm library. This makes it easy to quickly create
+        test records, mocks, or prototype data without having to build them by
+        hand.
+      </Card>
 
-        <CodeGroup
-          groupId="example"
-          languages={[
-            { value: "javascript", label: "JavaScript" },
-            { value: "typescript", label: "TypeScript" },
-          ]}
-          tabs={[
-            {
-              title: "Basic",
-              variants: {
-                javascript: {
-                  code: code,
-                  highlightedCode: highlightedCodeWithLines,
-                  showLineNumbers: true,
-                },
-                typescript: {
-                  code: secondCode,
-                  highlightedCode: secondHighlightedCodeWithLines,
-                  showLineNumbers: true,
-                },
-              },
-            }
-          ]}
-        />
-      </div>
-    </>
-  );
+      <h3>Example code to fetch API</h3>
+      <CodeGroup tabs={[{
+        title: "Basic API fetch code",
+        variants: {
+          javascript: {
+            code: basicApiFetchCode.js,
+            highlightedCode: highlightCode(basicApiFetchCode.js, "javascript"),
+            showLineNumbers: true,
+          },
+          python: {
+            code: basicApiFetchCode.py,
+            highlightedCode: highlightCode(basicApiFetchCode.py, "python"),
+            showLineNumbers: true,
+          }
+        },
+      }]} languages={[
+        { value: "javascript", label: "JavaScript" },
+        { value: "python", label: "Python" }
+      ]} />
+
+      <h3>In concole you should see:</h3>
+      <CodeBlock title="Result" code={basicApiFetchCode.res} language="json" highlightedCode={highlightCode(basicApiFetchCode.res, "javascript")}>test</CodeBlock>
+      <Callout variant="info" title="Note">
+        Values in your console can be a bit different because seed is not set and data is generated randomly.
+      </Callout>
+    </div >
+  )
 }

@@ -5,5 +5,9 @@
     .width-#{"" + $key} {
       width: $value;
     }
+
+    .max-width-#{"" + $key} {
+      max-width: $value;
+    }
   }
 }
