@@ -17,6 +17,15 @@ const icons = {
       <path stroke="currentColor" strokeLinejoin="round" fill="none" d="M5.75 3.75h6v10h-6z" />
       <path stroke="currentColor" strokeLinejoin="round" fill="none" d="M5.75 12.25h-1.5v-10h6v1.5" />
     </svg>
+  ),
+  trash: (
+    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3.2941" y="3.7353" width="9.4118" height="11.7647" rx="1.2" stroke="currentColor" fill="none" />
+      <rect x="6.5294" y="0.5" width="2.9412" height="1.7647" rx="0.6" stroke="currentColor" fill="none" />
+      <rect x="2.7059" y="1.6765" width="10.5882" height="1.1764" rx="0.5" fill="currentColor" />
+      <rect x="5.9412" y="6.6765" width="1.1764" height="5.8823" rx="0.5" fill="currentColor" />
+      <rect x="8.8824" y="6.6765" width="1.1764" height="5.8823" rx="0.5" fill="currentColor" />
+    </svg>
   )
 }
 

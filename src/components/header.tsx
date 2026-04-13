@@ -45,8 +45,8 @@ export default function Header() {
           </Link>
         </div>
         <div className="nav">
-          <Link href="/users-generator" onClick={hideSidebar}>
-            users generator
+          <Link href="/generator" onClick={hideSidebar}>
+            generator
           </Link>
         </div>
         <div className={cn("justify-self-end", "mobile")}>
@@ -54,8 +54,8 @@ export default function Header() {
         </div>
 
         <div className={cn("nav-sidebar", { hidden: !isSidebarOpen, visible: isSidebarOpen })} ref={sidebarRef}>
-          <Link href="/users-generator" onClick={hideSidebar}>
-            users generator
+          <Link href="/generator" onClick={hideSidebar}>
+            generator
           </Link>
         </div>
       </div>
