@@ -72,9 +72,11 @@ export default function DocsPage() {
       <h3>In concole you will get:</h3>
       <CodeBlock title="Result" code={seedApiFetchCode.res} language="json" highlightedCode={highlightCode(seedApiFetchCode.res, "javascript")}>test</CodeBlock>
       <Callout variant="info" title="Info">
-        count can be between 1 and 300,<br />
-        you can use as many fields as you need,<br />
-        seed is optional, if you don&apos;t set it, data will be generated randomly.
+        <ul>
+          <li>Count can be between 1 and 300.</li>
+          <li>You can use as many fields as you need.</li>
+          <li>Seed is optional, if you don&apos;t set it, data will be generated randomly.</li>
+        </ul>
       </Callout>
 
       <h3>All working fields</h3>
