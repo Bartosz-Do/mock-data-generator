@@ -16,6 +16,11 @@
       border: 1px solid var(--color-bg-disabled);
     }
 
+    .prose-ui-table-div {
+      overflow-x: auto;
+      max-width: var(--size-100);
+    }
+
     table {
       text-align: left;
 

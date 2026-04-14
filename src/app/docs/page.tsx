@@ -72,58 +72,60 @@ export default function DocsPage() {
       <h3>In concole you will get:</h3>
       <CodeBlock title="Result" code={seedApiFetchCode.res} language="json" highlightedCode={highlightCode(seedApiFetchCode.res, "javascript")}>test</CodeBlock>
       <Callout variant="info" title="Info">
-        count can be between 1 and 300,
-        you can use as many fields as you need,
-        seed is optional, if you don't set it, data will be generated randomly
+        count can be between 1 and 300,<br />
+        you can use as many fields as you need,<br />
+        seed is optional, if you don&apos;t set it, data will be generated randomly.
       </Callout>
 
       <h3>All working fields</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Column name</th>
-            <th>Column value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>"firstName"</td>
-            <td>First name of user like "John"</td>
-          </tr>
-          <tr>
-            <td>"lastName"</td>
-            <td>Last name of user like "Doe"</td>
-          </tr>
-          <tr>
-            <td>"fullName"</td>
-            <td>Full name of user like "John Doe"</td>
-          </tr>
-          <tr>
-            <td>"email"</td>
-            <td>Email of user like "john.doe@example.com"</td>
-          </tr>
-          <tr>
-            <td>"username"</td>
-            <td>Username of user like "john_doe"</td>
-          </tr>
-          <tr>
-            <td>"password"</td>
-            <td>Password of user like "password123"</td>
-          </tr>
-          <tr>
-            <td>"avatar"</td>
-            <td>Avatar of user like "https://example.com/avatar.png"</td>
-          </tr>
-          <tr>
-            <td>"phrase"</td>
-            <td>Phrase of user with computer science terms</td>
-          </tr>
-          <tr>
-            <td>"anytime"</td>
-            <td>Random date and time</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="prose-ui-table-div">
+        <table>
+          <thead>
+            <tr>
+              <th>Column name</th>
+              <th>Column value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>&quot;firstName&quot;</td>
+              <td>First name of user like &quot;John&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;lastName&quot;</td>
+              <td>Last name of user like &quot;Doe&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;fullName&quot;</td>
+              <td>Full name of user like &quot;John Doe&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;email&quot;</td>
+              <td>Email of user like &quot;john.doe@example.com&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;username&quot;</td>
+              <td>Username of user like &quot;john_doe&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;password&quot;</td>
+              <td>Password of user like &quot;password123&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;avatar&quot;</td>
+              <td>Avatar of user like &quot;https://example.com/avatar.png&quot;</td>
+            </tr>
+            <tr>
+              <td>&quot;phrase&quot;</td>
+              <td>Phrase of user with computer science terms</td>
+            </tr>
+            <tr>
+              <td>&quot;anytime&quot;</td>
+              <td>Random date and time</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
