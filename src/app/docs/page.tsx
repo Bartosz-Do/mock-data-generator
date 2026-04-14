@@ -1,6 +1,6 @@
 import { cn } from "@/utilities";
 import { CodeGroup, Card, CodeBlock, Callout } from "@prose-ui/next";
-import { basicApiFetchCode } from "./codes";
+import { basicApiFetchCode, seedApiFetchCode } from "./codes";
 import * as Prism from "prismjs";
 import "prismjs/components/prism-python";
 
@@ -46,6 +46,84 @@ export default function DocsPage() {
       <Callout variant="warning" title="Note">
         Values in your console can be a bit different because seed is not set and data is generated randomly.
       </Callout>
-    </div >
+
+      <h3>You can change count of records, fields and seed:</h3>
+      <CodeGroup tabs={[
+        {
+          title: "Seed API fetch code",
+          variants: {
+            javascript: {
+              code: seedApiFetchCode.js,
+              highlightedCode: highlightCode(seedApiFetchCode.js, "javascript"),
+              showLineNumbers: true,
+            },
+            python: {
+              code: seedApiFetchCode.py,
+              highlightedCode: highlightCode(seedApiFetchCode.py, "python"),
+              showLineNumbers: true,
+            },
+          },
+        }
+      ]} languages={[
+        { value: "javascript", label: "JavaScript" },
+        { value: "python", label: "Python" }
+      ]} />
+
+      <h3>In concole you will get:</h3>
+      <CodeBlock title="Result" code={seedApiFetchCode.res} language="json" highlightedCode={highlightCode(seedApiFetchCode.res, "javascript")}>test</CodeBlock>
+      <Callout variant="info" title="Info">
+        count can be between 1 and 300,
+        you can use as many fields as you need,
+        seed is optional, if you don't set it, data will be generated randomly
+      </Callout>
+
+      <h3>All working fields</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Column name</th>
+            <th>Column value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"firstName"</td>
+            <td>First name of user like "John"</td>
+          </tr>
+          <tr>
+            <td>"lastName"</td>
+            <td>Last name of user like "Doe"</td>
+          </tr>
+          <tr>
+            <td>"fullName"</td>
+            <td>Full name of user like "John Doe"</td>
+          </tr>
+          <tr>
+            <td>"email"</td>
+            <td>Email of user like "john.doe@example.com"</td>
+          </tr>
+          <tr>
+            <td>"username"</td>
+            <td>Username of user like "john_doe"</td>
+          </tr>
+          <tr>
+            <td>"password"</td>
+            <td>Password of user like "password123"</td>
+          </tr>
+          <tr>
+            <td>"avatar"</td>
+            <td>Avatar of user like "https://example.com/avatar.png"</td>
+          </tr>
+          <tr>
+            <td>"phrase"</td>
+            <td>Phrase of user with computer science terms</td>
+          </tr>
+          <tr>
+            <td>"anytime"</td>
+            <td>Random date and time</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   )
 }

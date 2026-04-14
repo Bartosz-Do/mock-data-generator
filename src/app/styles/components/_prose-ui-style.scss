@@ -15,5 +15,14 @@
     .code-block {
       border: 1px solid var(--color-bg-disabled);
     }
+
+    table {
+      text-align: left;
+
+      th,
+      td {
+        padding: var(--space-s) var(--space-m);
+      }
+    }
   }
 }
