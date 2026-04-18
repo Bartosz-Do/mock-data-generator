@@ -41,7 +41,7 @@ export default function DocsPage() {
         { value: "python", label: "Python" }
       ]} />
 
-      <h3>In concole you should see:</h3>
+      <h3>In console you should see:</h3>
       <CodeBlock title="Result" code={basicApiFetchCode.res} language="json" highlightedCode={highlightCode(basicApiFetchCode.res, "javascript")}>test</CodeBlock>
       <Callout variant="warning" title="Note">
         Values in your console can be a bit different because seed is not set and data is generated randomly.
@@ -69,7 +69,7 @@ export default function DocsPage() {
         { value: "python", label: "Python" }
       ]} />
 
-      <h3>In concole you will get:</h3>
+      <h3>In console you will get:</h3>
       <CodeBlock title="Result" code={seedApiFetchCode.res} language="json" highlightedCode={highlightCode(seedApiFetchCode.res, "javascript")}>test</CodeBlock>
       <Callout variant="info" title="Info">
         <ul>
