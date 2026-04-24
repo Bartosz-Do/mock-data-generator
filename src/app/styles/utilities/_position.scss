@@ -40,4 +40,12 @@
   .justify-self-center {
     justify-self: center;
   }
+
+  .flex-column {
+    flex-direction: column;
+  }
+
+  .flex-row {
+    flex-direction: row;
+  }
 }

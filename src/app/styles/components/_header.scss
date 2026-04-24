@@ -57,10 +57,12 @@
       z-index: 10000;
       padding: var(--space-m);
       transition: 0.5s;
-      text-align: center;
+      flex-direction: column;
+      gap: var(--space-s);
+      align-items: center;
 
       @media (max-width: 768px) {
-        display: block;
+        display: flex;
       }
 
       &.hidden {

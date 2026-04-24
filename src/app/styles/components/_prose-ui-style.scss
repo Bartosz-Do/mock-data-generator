@@ -1,5 +1,33 @@
 @layer components {
   .prose-ui {
     background-color: var(--color-bg-primary);
+
+    &.center {
+      width: var(--size-100);
+      padding: 0 var(--size-10);
+
+      @media (max-width: 768px) {
+        padding: 0 var(--space-m);
+      }
+    }
+
+    .code-group,
+    .code-block {
+      border: 1px solid var(--color-bg-disabled);
+    }
+
+    .prose-ui-table-div {
+      overflow-x: auto;
+      max-width: var(--size-100);
+    }
+
+    table {
+      text-align: left;
+
+      th,
+      td {
+        padding: var(--space-s) var(--space-m);
+      }
+    }
   }
 }

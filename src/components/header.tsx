@@ -48,6 +48,9 @@ export default function Header() {
           <Link href="/generator" onClick={hideSidebar}>
             generator
           </Link>
+          <Link href="/docs" onClick={hideSidebar}>
+            API docs
+          </Link>
         </div>
         <div className={cn("justify-self-end", "mobile")}>
           <Icon name="hamburgerMenu" className="size-s link" onClick={toggleSidebar} />
@@ -56,6 +59,9 @@ export default function Header() {
         <div className={cn("nav-sidebar", { hidden: !isSidebarOpen, visible: isSidebarOpen })} ref={sidebarRef}>
           <Link href="/generator" onClick={hideSidebar}>
             generator
+          </Link>
+          <Link href="/docs" onClick={hideSidebar}>
+            API docs
           </Link>
         </div>
       </div>
